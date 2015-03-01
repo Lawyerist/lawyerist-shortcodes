@@ -48,22 +48,33 @@ List Authors
 add_shortcode('author-list','list_authors_shortcode');
 function list_authors_shortcode() {
 
-  $args = array(
-    'exclude'			=> '5,26,32,37,50,69,78',
-    'number'			=> 27,
-    'optioncount' => 1,
-    'order'				=> 'DESC',
-    'orderby'			=> 'post_count'
+  $active_writer_args = array(
+    'role'    => 'Contributor',
+    'exclude' => array(26,32,37), // Exclude Guest, Sponsor, and Lawyerist users
+    'orderby' => 'post_count',
+    'order' => 'DESC',
   );
 
+  $active_writers = new WP_User_Query( $active_writer_args );
+
   ob_start();
+
     echo '<ul class="author_list">';
-    wp_list_authors($args);
-    echo '<li>…</li>';
+
+    if ( ! empty( $active_writers->results ) ) {
+      foreach ( $active_writers->results as $writer ) {
+        if ( count_user_posts($writer->ID) > 0 ) {
+          echo '<li><a href="https://lawyerist.com/author/' . $writer->user_login . '/">' . get_avatar( $writer->ID, 100 ) . '<br />' . $writer->display_name . '</a></li>';
+        }
+      }
+    } else {
+      echo 'No writers found.';
+    }
+
     echo '</ul>';
 
-  $author_list = ob_get_clean();
+  $active_writers_list = ob_get_clean();
 
-  return $author_list;
+  return $active_writers_list;
 
 }
