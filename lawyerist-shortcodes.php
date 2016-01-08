@@ -63,8 +63,23 @@ List Authors
 
 function list_authors_shortcode() {
 
+  global $wpdb;
+  $blog_id = get_current_blog_id();
+
   $active_writer_args = array(
-    'role'    => 'Contributor',
+    'meta_query' => array(
+        'relation' => 'OR',
+        array(
+            'key' => $wpdb->get_blog_prefix( $blog_id ) . 'capabilities',
+            'value' => 'Editor',
+            'compare' => 'like'
+        ),
+        array(
+            'key' => $wpdb->get_blog_prefix( $blog_id ) . 'capabilities',
+            'value' => 'Contributor',
+            'compare' => 'like'
+        )
+    ),
     'exclude' => array(26,32,37), // Exclude Guest, Sponsor, and Lawyerist users
     'orderby' => 'post_count',
     'order' => 'DESC',
