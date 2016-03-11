@@ -76,6 +76,11 @@ function list_authors_shortcode() {
         ),
         array(
             'key' => $wpdb->get_blog_prefix( $blog_id ) . 'capabilities',
+            'value' => 'Author',
+            'compare' => 'like'
+        ),
+        array(
+            'key' => $wpdb->get_blog_prefix( $blog_id ) . 'capabilities',
             'value' => 'Contributor',
             'compare' => 'like'
         )
