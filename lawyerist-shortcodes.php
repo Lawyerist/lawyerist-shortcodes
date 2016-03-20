@@ -99,7 +99,7 @@ function list_authors_shortcode() {
     if ( ! empty( $active_writers->results ) ) {
       foreach ( $active_writers->results as $writer ) {
         if ( count_user_posts($writer->ID) > 0 ) {
-          echo '<li><a href="https://lawyerist.com/author/' . $writer->user_login . '/">' . get_avatar( $writer->ID, 100 ) . '<br />' . $writer->display_name . '</a></li>';
+          echo '<li><a href="' . get_author_posts_url( $writer->ID ) . '">' . get_avatar( $writer->ID, 100 ) . '<br />' . $writer->display_name . '</a></li>';
         }
       }
     } else {
