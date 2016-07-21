@@ -75,27 +75,10 @@ function list_authors_shortcode() {
   $blog_id = get_current_blog_id();
 
   $active_writer_args = array(
-    'meta_query' => array(
-        'relation' => 'OR',
-        array(
-            'key' => $wpdb->get_blog_prefix( $blog_id ) . 'capabilities',
-            'value' => 'Editor',
-            'compare' => 'like'
-        ),
-        array(
-            'key' => $wpdb->get_blog_prefix( $blog_id ) . 'capabilities',
-            'value' => 'Author',
-            'compare' => 'like'
-        ),
-        array(
-            'key' => $wpdb->get_blog_prefix( $blog_id ) . 'capabilities',
-            'value' => 'Contributor',
-            'compare' => 'like'
-        )
-    ),
-    'exclude' => array(26,32,37), // Exclude Guest, Sponsor, and Lawyerist users
-    'orderby' => 'post_count',
-    'order' => 'DESC',
+    'role__in'  => array( 'Administrator', 'Editor', 'Author', 'Contributor' ),
+    'exclude'   => array( 78, 5, 95, 26, 32, 37 ), // Aaron, Sam, Lisa, Guest, Sponsor, and Lawyerist users
+    'orderby'   => 'post_count',
+    'order'     => 'DESC'
   );
 
   $active_writers = new WP_User_Query( $active_writer_args );
