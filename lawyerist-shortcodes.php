@@ -11,6 +11,13 @@ Author URI: http://samglover.net
 
 
 /*--------------------------------------------------
+Preserve Markdown in Shortcodes
+--------------------------------------------------*/
+
+add_filter( 'jetpack_markdown_preserve_shortcodes', '__return_false' );
+
+
+/*--------------------------------------------------
 Index
 --------------------------------------------------*/
 
