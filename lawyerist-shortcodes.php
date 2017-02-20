@@ -9,6 +9,7 @@ Version: [See README.md for changelog]
 Author URI: http://samglover.net
 */
 
+
 /*--------------------------------------------------
 Index
 --------------------------------------------------*/
@@ -17,6 +18,7 @@ function lawyerist_index_shortcode( $atts, $content = null ) {
   return '<div class="post_index" markdown="1">' . $content . '</div>';
 }
 add_shortcode('index','lawyerist_index_shortcode');
+
 
 /*--------------------------------------------------
 Image Credits
@@ -59,7 +61,7 @@ function lawyerist_get_script_shortcode( $atts ) {
 
     $dir = get_template_directory_uri();
 
-    return '<script type="text/javascript" src="' . $dir . '/' . $a['file'] . '"></script>';
+    return '<script type="text/javascript" src="' . $dir . '/js/' . $a['file'] . '"></script>';
 
 }
 add_shortcode( 'get-script', 'lawyerist_get_script_shortcode' );
