@@ -42,7 +42,7 @@ Pullquotes
 --------------------------------------------------*/
 
 function lawyerist_pullquote_shortcode( $atts, $content = null ) {
-  return '<aside><blockquote markdown="1">' . $content . '</blockquote></aside>';
+  return '<aside><blockquote class="pullquote" markdown="1">' . $content . '</blockquote></aside>';
 }
 add_shortcode('pullquote','lawyerist_pullquote_shortcode');
 
@@ -52,7 +52,7 @@ Pullouts
 --------------------------------------------------*/
 
 function lawyerist_pullout_shortcode( $atts, $content = null ) {
-  return '<aside><p class="pullout" markdown="1"><span class="pullout_label">Related </span>' . $content . '</p></aside>';
+  return '<aside class="pullout"><p class="pullout" markdown="1"><span class="pullout_label">Related </span>' . $content . '</p></aside>';
 }
 add_shortcode('pullout','lawyerist_pullout_shortcode');
 
