@@ -58,6 +58,16 @@ add_shortcode('pullout','lawyerist_pullout_shortcode');
 
 
 /*--------------------------------------------------
+Testimonials
+--------------------------------------------------*/
+
+function lawyerist_testimonial_shortcode( $atts, $content = null ) {
+  return '<aside><blockquote class="testimonial" markdown="1">' . $content . '</blockquote></aside>';
+}
+add_shortcode('testimonial','lawyerist_testimonial_shortcode');
+
+
+/*--------------------------------------------------
 Get Script
 --------------------------------------------------*/
 
