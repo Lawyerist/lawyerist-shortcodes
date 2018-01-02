@@ -62,7 +62,7 @@ Testimonials
 --------------------------------------------------*/
 
 function lawyerist_testimonial_shortcode( $atts, $content = null ) {
-  return '<aside><blockquote class="testimonial" markdown="1">' . $content . '<span class="sponsored_testimonial_label"> Sponsored Testimonial Placement</span></blockquote></aside>';
+  return '<aside><blockquote class="testimonial" markdown="1"><span class="sponsored_testimonial_label"> Sponsored Testimonial Placement</span>' . $content . '</blockquote></aside>';
 }
 add_shortcode( 'testimonial', 'lawyerist_testimonial_shortcode' );
 
