@@ -61,11 +61,17 @@ add_shortcode( 'pullout', 'lawyerist_pullout_shortcode' );
 Testimonials
 --------------------------------------------------*/
 
-function lawyerist_testimonial_shortcode( $atts, $content = null ) {
-  return '<aside><blockquote class="testimonial" markdown="1"><span class="sponsored_testimonial_label">Sponsored Testimonial Placement</span><span class="sponsored_testimonial_content">' . $content . '</span></blockquote></aside>';
+function lawyerist_testimonial_shortcode( $atts, $quotation = null ) {
+
+  $attributes = shortcode_atts( array(
+    'source'  => '',
+  ), $atts );
+
+  $source = $attributes['source'];
+
+  return '<aside><blockquote class="testimonial" markdown="1"><span class="sponsored_testimonial_label">Sponsored Testimonial Placement</span><span class="sponsored_testimonial_quotation">' . $quotation . '</span><span class="sponsored_testimonial_source">—' . $source . '</span></blockquote></aside>';
 }
 add_shortcode( 'testimonial', 'lawyerist_testimonial_shortcode' );
-
 
 /*--------------------------------------------------
 Get Script
