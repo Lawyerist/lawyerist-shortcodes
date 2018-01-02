@@ -73,6 +73,7 @@ function lawyerist_testimonial_shortcode( $atts, $quotation = null ) {
 }
 add_shortcode( 'testimonial', 'lawyerist_testimonial_shortcode' );
 
+
 /*--------------------------------------------------
 Get Script
 --------------------------------------------------*/
