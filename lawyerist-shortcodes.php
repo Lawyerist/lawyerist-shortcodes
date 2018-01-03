@@ -69,7 +69,7 @@ function lawyerist_testimonial_shortcode( $atts, $quotation = null ) {
 
   $source = $attributes['source'];
 
-  return '<aside><blockquote class="testimonial" markdown="1"><span class="sponsored_testimonial_label">Testimonial Provided by Sponsor</span><span class="sponsored_testimonial_quotation">&ldquo;' . $quotation . '&rdquo;</span><span class="sponsored_testimonial_source postmeta">—' . $source . '</span></blockquote></aside>';
+  return '<aside><blockquote class="testimonial" markdown="1"><span class="sponsored_testimonial_quotation">&ldquo;' . $quotation . '&rdquo;</span><span class="sponsored_testimonial_source postmeta">—' . $source . '</span><span class="sponsored_testimonial_label">Testimonial Provided by Sponsor</span></blockquote></aside>';
 }
 add_shortcode( 'testimonial', 'lawyerist_testimonial_shortcode' );
 
