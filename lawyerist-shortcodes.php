@@ -11,7 +11,6 @@ Author URI: http://samglover.net
 
 /* INDEX
 - Preserve Markdown in Shortcodes
-- Index
 - Image Credits
 - Pullquotes
 - Pullouts
@@ -27,16 +26,6 @@ Preserve Markdown in Shortcodes
 --------------------------------------------------*/
 
 add_filter( 'jetpack_markdown_preserve_shortcodes', '__return_false' );
-
-
-/*--------------------------------------------------
-Index
---------------------------------------------------*/
-
-function lawyerist_index_shortcode( $atts, $content = null ) {
-  return '<div class="post_index" markdown="1">' . $content . '</div>';
-}
-add_shortcode('index','lawyerist_index_shortcode');
 
 
 /*--------------------------------------------------
