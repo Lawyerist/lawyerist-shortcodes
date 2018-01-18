@@ -101,15 +101,15 @@ function lawyerist_featured_products_list( $atts ) {
 	$parent = get_the_ID();
 
 	// Shortcode attributes.
-	$attributes = shortcode_atts( array(
-    'parent'  => $parent,
+	$atts = shortcode_atts( array(
+    'portal'  => $parent,
   ), $atts );
 
 	// Query variables.
 	$featured_products_list_query_args = array(
 		'order'						=> 'ASC',
 		'orderby'					=> 'title',
-		'post_parent'			=> $parent,
+		'post_parent'			=> $atts['portal'],
 		'post_type'				=> 'page',
 		'posts_per_page'	=> 5, // Determines how many page are displayed in the list.
 		'tax_query' => array(
@@ -254,15 +254,15 @@ function lawyerist_product_list( $atts ) {
 	$parent = get_the_ID();
 
 	// Shortcode attributes.
-	$attributes = shortcode_atts( array(
-    'parent'  => $parent,
+	$atts = shortcode_atts( array(
+    'portal'  => $parent,
   ), $atts );
 
 	// Query variables.
 	$product_list_query_args = array(
 		'order'						=> 'ASC',
 		'orderby'					=> 'title',
-		'post_parent'			=> $parent,
+		'post_parent'			=> $atts['portal'],
     'posts_per_page'  => -1,
 		'post_type'				=> 'page',
     'tax_query' => array(
