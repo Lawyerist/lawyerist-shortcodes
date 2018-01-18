@@ -18,6 +18,7 @@ Author URI: http://samglover.net
 - Testimonials
 - Get Script
 - List Featured Products
+- List Products
 */
 
 
@@ -103,7 +104,7 @@ add_shortcode( 'get-script', 'lawyerist_get_script_shortcode' );
 
 
 /*------------------------------
-List Featured Product Shortcode
+List Featured Products
 ------------------------------*/
 
 function lawyerist_featured_products_list( $atts ) {
@@ -253,3 +254,85 @@ function lawyerist_featured_products_list( $atts ) {
 }
 
 add_shortcode( 'list-featured-products', 'lawyerist_featured_products_list' );
+
+
+/*------------------------------
+List Products
+------------------------------*/
+
+function lawyerist_product_list( $atts ) {
+
+	$parent = get_the_ID();
+
+	// Shortcode attributes.
+	$attributes = shortcode_atts( array(
+    'parent'  => $parent,
+  ), $atts );
+
+	// Query variables.
+	$product_list_query_args = array(
+		'order'						=> 'ASC',
+		'orderby'					=> 'title',
+		'post_parent'			=> $parent,
+		'post_type'				=> 'page',
+	);
+
+
+	$product_list_query = new WP_Query( $product_list_query_args );
+
+	if ( $product_list_query->post_count > 1 ) :
+
+		echo '<ul class="product-pages-list featured-products-list">';
+
+			// Start the Loop.
+			while ( $product_list_query->have_posts() ) : $product_list_query->the_post();
+
+				$product_page_ID		= get_the_ID();
+				$product_page_title	= the_title( '', '', FALSE );
+				$product_page_URL		= get_permalink();
+
+        $seo_descr  = get_post_meta( $product_page_ID, '_yoast_wpseo_metadesc', true );
+
+        if ( !empty( $seo_descr ) ) {
+          $page_excerpt = $seo_descr;
+        } else {
+          $page_excerpt = get_the_excerpt();
+        }
+
+				echo '<li class="listing-item">';
+
+					if ( has_post_thumbnail() ) {
+						echo '<a class="image" href="' . $product_page_URL . '">';
+						the_post_thumbnail( 'thumbnail' );
+						echo '</a>';
+					}
+
+					echo '<a class="title" href="' . $product_page_URL . '">' . $product_page_title . '</a>';
+
+					if ( function_exists( 'wp_review_show_total' ) ) {
+
+	          $rating = get_post_meta( $product_page_ID, 'wp_review_comments_rating_value', true );
+
+	          echo '<span class="user-rating">';
+		          if ( !empty( $rating ) ) {
+		            wp_review_show_total();
+		          }
+						echo '</span>';
+
+	        }
+
+					echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $product_page_URL . '">Learn more about ' . $product_page_title . '.</a></span>';
+
+				echo '</li>';
+
+			endwhile;
+
+			wp_reset_postdata();
+
+		echo '</ul>';
+
+	endif; // End product list.
+
+}
+
+add_shortcode( 'list-products', 'lawyerist_product_list' );
