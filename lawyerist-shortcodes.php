@@ -18,7 +18,6 @@ Author URI: http://samglover.net
 - Testimonials
 - Get Script
 - List Featured Products
-- List Authors
 */
 
 
@@ -252,46 +251,5 @@ function lawyerist_featured_products_list( $atts ) {
 	endif; // End featured products list.
 
 }
+
 add_shortcode( 'list-featured-products', 'lawyerist_featured_products_list' );
-
-
-/*------------------------------
-List Authors
-------------------------------*/
-
-function list_authors_shortcode() {
-
-  global $wpdb;
-  $blog_id = get_current_blog_id();
-
-  $active_writer_args = array(
-    'role__in'  => array( 'Administrator', 'Editor', 'Author', 'Contributor' ),
-    'exclude'   => array( 78, 5, 95, 26, 32, 37 ), // Aaron, Sam, Lisa, Guest, Sponsor, and Lawyerist users
-    'orderby'   => 'post_count',
-    'order'     => 'DESC'
-  );
-
-  $active_writers = new WP_User_Query( $active_writer_args );
-
-  ob_start();
-
-    echo '<ul class="author_list">';
-
-    if ( ! empty( $active_writers->results ) ) {
-      foreach ( $active_writers->results as $writer ) {
-        if ( count_user_posts($writer->ID) > 0 ) {
-          echo '<li><a href="' . get_author_posts_url( $writer->ID ) . '">' . get_avatar( $writer->ID, 100 ) . '<br />' . $writer->display_name . '</a></li>';
-        }
-      }
-    } else {
-      echo 'No writers found.';
-    }
-
-    echo '</ul>';
-
-  $active_writers_list = ob_get_clean();
-
-  return $active_writers_list;
-
-}
-add_shortcode('author-list','list_authors_shortcode');
