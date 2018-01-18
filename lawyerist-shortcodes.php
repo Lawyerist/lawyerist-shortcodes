@@ -263,7 +263,16 @@ function lawyerist_product_list( $atts ) {
 		'order'						=> 'ASC',
 		'orderby'					=> 'title',
 		'post_parent'			=> $parent,
+    'posts_per_page'  => -1,
 		'post_type'				=> 'page',
+    'tax_query' => array(
+			array(
+				'taxonomy' => 'page_type',
+				'field'    => 'slug',
+				'terms'    => 'discontinued-product',
+        'operator' => 'NOT IN'
+			),
+		),
 	);
 
 
