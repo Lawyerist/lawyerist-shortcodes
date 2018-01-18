@@ -282,7 +282,9 @@ function lawyerist_product_list( $atts ) {
 
 	if ( $product_list_query->post_count > 1 ) :
 
-		echo '<ul class="product-pages-list featured-products-list">';
+    echo '<h2>Alphabetical List</h2>';
+
+		echo '<ul class="product-pages-list">';
 
 			// Start the Loop.
 			while ( $product_list_query->have_posts() ) : $product_list_query->the_post();
