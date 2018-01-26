@@ -107,7 +107,7 @@ function lawyerist_featured_products_list( $atts ) {
 
   $show_featured = filter_var( $atts['show_featured'], FILTER_VALIDATE_BOOLEAN );
 
-  // Show featured posts unless the shortcode contains show_featured="false".
+  // Show featured products unless the shortcode contains show_featured="false".
   if ( $show_featured == true ) {
 
     // Query variables.
@@ -245,8 +245,10 @@ function lawyerist_featured_products_list( $atts ) {
 
   	endif; // End featured products list.
 
-  } // End featured posts.
+  } // End featured products.
 
+  // Alphabetical list of products.
+  
   // Query variables.
 	$product_list_query_args = array(
 		'order'						=> 'ASC',
