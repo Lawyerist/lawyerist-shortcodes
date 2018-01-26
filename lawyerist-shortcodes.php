@@ -16,7 +16,6 @@ Author URI: http://samglover.net
 - Pullouts
 - Testimonials
 - Get Script
-- List Featured Products
 - List Products
 */
 
@@ -93,7 +92,7 @@ add_shortcode( 'get-script', 'lawyerist_get_script_shortcode' );
 
 
 /*------------------------------
-List Featured Products
+List Products
 ------------------------------*/
 
 function lawyerist_featured_products_list( $atts ) {
@@ -102,163 +101,153 @@ function lawyerist_featured_products_list( $atts ) {
 
 	// Shortcode attributes.
 	$atts = shortcode_atts( array(
-    'portal'  => $parent,
+    'portal'        => $parent,
+    'show_featured' => true,
   ), $atts );
 
-	// Query variables.
-	$featured_products_list_query_args = array(
-		'order'						=> 'ASC',
-		'orderby'					=> 'title',
-		'post_parent'			=> $atts['portal'],
-		'post_type'				=> 'page',
-		'posts_per_page'	=> 5, // Determines how many page are displayed in the list.
-		'tax_query' => array(
-			array(
-				'taxonomy' => 'page_type',
-				'field'    => 'slug',
-				'terms'    => 'featured-product',
-			),
-		),
-	);
+  $show_featured = filter_var( $atts['show_featured'], FILTER_VALIDATE_BOOLEAN );
 
-	// Counter for inserting mobile ads and other stuff.
-	$page_num = 1;
+  // Show featured posts unless the shortcode contains show_featured="false".
+  if ( $show_featured == true ) {
 
+    // Query variables.
+  	$featured_products_list_query_args = array(
+  		'order'						=> 'ASC',
+  		'orderby'					=> 'title',
+  		'post_parent'			=> $atts['portal'],
+  		'post_type'				=> 'page',
+  		'posts_per_page'	=> 5, // Determines how many page are displayed in the list.
+  		'tax_query' => array(
+  			array(
+  				'taxonomy' => 'page_type',
+  				'field'    => 'slug',
+  				'terms'    => 'featured-product',
+  			),
+  		),
+  	);
 
-	// Create the trial button variables.
-	ob_start(); ?>
-		<div id='div-gpt-ad-1516133426824-0' style='height:75px; width:300px;'>
-		<script>
-		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516133426824-0'); });
-		</script>
-		</div>
-	<?php $button01 = ob_get_clean();
-
-	ob_start(); ?>
-		<div id='div-gpt-ad-1516133426824-1' style='height:75px; width:300px;'>
-		<script>
-		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516133426824-1'); });
-		</script>
-		</div>
-	<?php $button02 = ob_get_clean();
-
-	ob_start(); ?>
-		<div id='div-gpt-ad-1516133426824-2' style='height:75px; width:300px;'>
-		<script>
-		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516133426824-2'); });
-		</script>
-		</div>
-	<?php $button03 = ob_get_clean();
-
-	ob_start(); ?>
-		<div id='div-gpt-ad-1516133426824-3' style='height:75px; width:300px;'>
-		<script>
-		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516133426824-3'); });
-		</script>
-		</div>
-	<?php $button04 = ob_get_clean();
-
-	ob_start(); ?>
-		<div id='div-gpt-ad-1516133426824-4' style='height:75px; width:300px;'>
-		<script>
-		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516133426824-4'); });
-		</script>
-		</div>
-	<?php $button05 = ob_get_clean();
+  	// Counter for inserting mobile ads and other stuff.
+  	$page_num = 1;
 
 
-	$featured_products_list_query = new WP_Query( $featured_products_list_query_args );
+  	// Create the trial button variables.
+  	ob_start(); ?>
+  		<div id='div-gpt-ad-1516133426824-0' style='height:75px; width:300px;'>
+  		<script>
+  		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516133426824-0'); });
+  		</script>
+  		</div>
+  	<?php $button01 = ob_get_clean();
 
-	if ( $featured_products_list_query->post_count > 1 ) :
+  	ob_start(); ?>
+  		<div id='div-gpt-ad-1516133426824-1' style='height:75px; width:300px;'>
+  		<script>
+  		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516133426824-1'); });
+  		</script>
+  		</div>
+  	<?php $button02 = ob_get_clean();
 
-		echo '<div class="featured_products_heading">Featured Products</div>';
+  	ob_start(); ?>
+  		<div id='div-gpt-ad-1516133426824-2' style='height:75px; width:300px;'>
+  		<script>
+  		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516133426824-2'); });
+  		</script>
+  		</div>
+  	<?php $button03 = ob_get_clean();
 
-		echo '<ul class="product-pages-list featured-products-list">';
+  	ob_start(); ?>
+  		<div id='div-gpt-ad-1516133426824-3' style='height:75px; width:300px;'>
+  		<script>
+  		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516133426824-3'); });
+  		</script>
+  		</div>
+  	<?php $button04 = ob_get_clean();
 
-			// Start the Loop.
-			while ( $featured_products_list_query->have_posts() ) : $featured_products_list_query->the_post();
-
-				$featured_page_ID			= get_the_ID();
-				$featured_page_title	= the_title( '', '', FALSE );
-				$featured_page_URL		= get_permalink();
-
-        $seo_descr  = get_post_meta( $featured_page_ID, '_yoast_wpseo_metadesc', true );
-
-        if ( !empty( $seo_descr ) ) {
-          $page_excerpt = $seo_descr;
-        } else {
-          $page_excerpt = get_the_excerpt();
-        }
-
-				echo '<li class="listing-item">';
-
-					if ( has_post_thumbnail() ) {
-						echo '<a class="image" href="' . $featured_page_URL . '">';
-						the_post_thumbnail( 'thumbnail' );
-						echo '</a>';
-					}
-
-					echo '<div class="title_container">';
-
-						echo '<a class="title" href="' . $featured_page_URL . '">' . $featured_page_title . '</a>';
-
-						if ( function_exists( 'wp_review_show_total' ) ) {
-
-		          $rating = get_post_meta( $featured_page_ID, 'wp_review_comments_rating_value', true );
-
-		          echo '<span class="user-rating">';
-			          if ( !empty( $rating ) ) {
-			            wp_review_show_total();
-			          }
-							echo '</span>';
-
-		        }
-
-					echo '</div>'; // End .title_container
-
-					echo '<div class="trial-button">';
-						if ( $page_num == 1 ) { echo $button01; }
-						elseif ( $page_num == 2 ) { echo $button02; }
-						elseif ( $page_num == 3 ) { echo $button03; }
-						elseif ( $page_num == 4 ) { echo $button04; }
-						elseif ( $page_num == 5 ) { echo $button05; }
-					echo '</div>';
-
-					echo '<div class="clear"></div>';
-
-					echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $featured_page_URL . '">Learn more about ' . $featured_page_title . '.</a></span>';
-
-					$page_num++; // Increment counter.
-
-				echo '</li>';
-
-			endwhile;
-
-			wp_reset_postdata();
-
-		echo '</ul>';
-
-	endif; // End featured products list.
-
-}
-
-add_shortcode( 'list-featured-products', 'lawyerist_featured_products_list' );
+  	ob_start(); ?>
+  		<div id='div-gpt-ad-1516133426824-4' style='height:75px; width:300px;'>
+  		<script>
+  		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516133426824-4'); });
+  		</script>
+  		</div>
+  	<?php $button05 = ob_get_clean();
 
 
-/*------------------------------
-List Products
-------------------------------*/
+  	$featured_products_list_query = new WP_Query( $featured_products_list_query_args );
 
-function lawyerist_product_list( $atts ) {
+  	if ( $featured_products_list_query->post_count > 1 ) :
 
-	$parent = get_the_ID();
+  		echo '<div class="featured_products_heading">Featured Products</div>';
 
-	// Shortcode attributes.
-	$atts = shortcode_atts( array(
-    'portal'  => $parent,
-  ), $atts );
+  		echo '<ul class="product-pages-list featured-products-list">';
 
-	// Query variables.
+  			// Start the Loop.
+  			while ( $featured_products_list_query->have_posts() ) : $featured_products_list_query->the_post();
+
+  				$featured_page_ID			= get_the_ID();
+  				$featured_page_title	= the_title( '', '', FALSE );
+  				$featured_page_URL		= get_permalink();
+
+          $seo_descr  = get_post_meta( $featured_page_ID, '_yoast_wpseo_metadesc', true );
+
+          if ( !empty( $seo_descr ) ) {
+            $page_excerpt = $seo_descr;
+          } else {
+            $page_excerpt = get_the_excerpt();
+          }
+
+  				echo '<li class="listing-item">';
+
+  					if ( has_post_thumbnail() ) {
+  						echo '<a class="image" href="' . $featured_page_URL . '">';
+  						the_post_thumbnail( 'thumbnail' );
+  						echo '</a>';
+  					}
+
+  					echo '<div class="title_container">';
+
+  						echo '<a class="title" href="' . $featured_page_URL . '">' . $featured_page_title . '</a>';
+
+  						if ( function_exists( 'wp_review_show_total' ) ) {
+
+  		          $rating = get_post_meta( $featured_page_ID, 'wp_review_comments_rating_value', true );
+
+  		          echo '<span class="user-rating">';
+  			          if ( !empty( $rating ) ) {
+  			            wp_review_show_total();
+  			          }
+  							echo '</span>';
+
+  		        }
+
+  					echo '</div>'; // End .title_container
+
+  					echo '<div class="trial-button">';
+  						if ( $page_num == 1 ) { echo $button01; }
+  						elseif ( $page_num == 2 ) { echo $button02; }
+  						elseif ( $page_num == 3 ) { echo $button03; }
+  						elseif ( $page_num == 4 ) { echo $button04; }
+  						elseif ( $page_num == 5 ) { echo $button05; }
+  					echo '</div>';
+
+  					echo '<div class="clear"></div>';
+
+  					echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $featured_page_URL . '">Learn more about ' . $featured_page_title . '.</a></span>';
+
+  					$page_num++; // Increment counter.
+
+  				echo '</li>';
+
+  			endwhile;
+
+  			wp_reset_postdata();
+
+  		echo '</ul>';
+
+  	endif; // End featured products list.
+
+  } // End featured posts.
+
+  // Query variables.
 	$product_list_query_args = array(
 		'order'						=> 'ASC',
 		'orderby'					=> 'title',
@@ -335,4 +324,4 @@ function lawyerist_product_list( $atts ) {
 
 }
 
-add_shortcode( 'list-products', 'lawyerist_product_list' );
+add_shortcode( 'list-products', 'lawyerist_featured_products_list' );
