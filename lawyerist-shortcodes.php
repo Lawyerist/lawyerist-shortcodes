@@ -209,13 +209,13 @@ function lawyerist_featured_products_list( $atts ) {
 
   						if ( function_exists( 'wp_review_show_total' ) ) {
 
-  		          $rating = get_post_meta( $featured_page_ID, 'wp_review_comments_rating_value', true );
+                $rating = get_post_meta( $product_page_ID, 'wp_review_comments_rating_value', true );
 
-  		          echo '<span class="user-rating">';
-  			          if ( !empty( $rating ) ) {
-  			            wp_review_show_total();
-  			          }
-  							echo '</span>';
+    	          if ( !empty( $rating ) ) {
+                  echo '<span class="user-rating">';
+    	            wp_review_show_total();
+                  echo '</span>';
+    	          }
 
   		        }
 
@@ -248,7 +248,7 @@ function lawyerist_featured_products_list( $atts ) {
   } // End featured products.
 
   // Alphabetical list of products.
-  
+
   // Query variables.
 	$product_list_query_args = array(
 		'order'						=> 'ASC',
@@ -304,11 +304,11 @@ function lawyerist_featured_products_list( $atts ) {
 
 	          $rating = get_post_meta( $product_page_ID, 'wp_review_comments_rating_value', true );
 
-	          echo '<span class="user-rating">';
-		          if ( !empty( $rating ) ) {
-		            wp_review_show_total();
-		          }
-						echo '</span>';
+	          if ( !empty( $rating ) ) {
+              echo '<span class="user-rating">';
+	            wp_review_show_total();
+              echo '</span>';
+	          }
 
 	        }
 
