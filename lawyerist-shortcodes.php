@@ -209,7 +209,7 @@ function lawyerist_featured_products_list( $atts ) {
 
   						if ( function_exists( 'wp_review_show_total' ) ) {
 
-                $rating = get_post_meta( $product_page_ID, 'wp_review_comments_rating_value', true );
+                $rating = get_post_meta( $featured_page_ID, 'wp_review_comments_rating_value', true );
 
     	          if ( !empty( $rating ) ) {
                   echo '<span class="user-rating">';
