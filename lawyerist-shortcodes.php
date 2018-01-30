@@ -95,7 +95,7 @@ add_shortcode( 'get-script', 'lawyerist_get_script_shortcode' );
 List Products
 ------------------------------*/
 
-function lawyerist_featured_products_list( $atts ) {
+function lawyerist_products_list( $atts ) {
 
 	$parent = get_the_ID();
 
@@ -211,11 +211,15 @@ function lawyerist_featured_products_list( $atts ) {
 
                 $rating = get_post_meta( $featured_page_ID, 'wp_review_comments_rating_value', true );
 
-    	          if ( !empty( $rating ) ) {
-                  echo '<span class="user-rating">';
-    	            wp_review_show_total();
-                  echo '</span>';
-    	          }
+                echo '<span class="user-rating">';
+
+      	          if ( !empty( $rating ) ) {
+      	            wp_review_show_total();
+                    echo '<br />';
+      	          }
+
+                echo '<a href="' . $product_page_URL . '#respond">Leave a review.</a>';
+                echo '</span>';
 
   		        }
 
@@ -304,11 +308,15 @@ function lawyerist_featured_products_list( $atts ) {
 
 	          $rating = get_post_meta( $product_page_ID, 'wp_review_comments_rating_value', true );
 
-	          if ( !empty( $rating ) ) {
-              echo '<span class="user-rating">';
-	            wp_review_show_total();
-              echo '</span>';
-	          }
+            echo '<span class="user-rating">';
+
+              if ( !empty( $rating ) ) {
+                wp_review_show_total();
+                echo '<br />';
+              }
+
+            echo '<a href="' . $product_page_URL . '#respond">Leave a review.</a>';
+            echo '</span>';
 
 	        }
 
@@ -326,4 +334,4 @@ function lawyerist_featured_products_list( $atts ) {
 
 }
 
-add_shortcode( 'list-products', 'lawyerist_featured_products_list' );
+add_shortcode( 'list-products', 'lawyerist_products_list' );
