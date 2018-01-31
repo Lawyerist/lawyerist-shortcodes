@@ -132,7 +132,7 @@ function lawyerist_products_list( $atts ) {
 
   	// Create the trial button variables.
   	ob_start(); ?>
-  		<div id='div-gpt-ad-1516133426824-0' style='height:75px; width:300px;'>
+  		<div id='div-gpt-ad-1516133426824-0' style='height:50px; width:170px;'>
   		<script>
   		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516133426824-0'); });
   		</script>
@@ -140,7 +140,7 @@ function lawyerist_products_list( $atts ) {
   	<?php $button01 = ob_get_clean();
 
   	ob_start(); ?>
-  		<div id='div-gpt-ad-1516133426824-1' style='height:75px; width:300px;'>
+  		<div id='div-gpt-ad-1516133426824-1' style='height:50px; width:170px;'>
   		<script>
   		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516133426824-1'); });
   		</script>
@@ -148,7 +148,7 @@ function lawyerist_products_list( $atts ) {
   	<?php $button02 = ob_get_clean();
 
   	ob_start(); ?>
-  		<div id='div-gpt-ad-1516133426824-2' style='height:75px; width:300px;'>
+  		<div id='div-gpt-ad-1516133426824-2' style='height:50px; width:170px;'>
   		<script>
   		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516133426824-2'); });
   		</script>
@@ -156,7 +156,7 @@ function lawyerist_products_list( $atts ) {
   	<?php $button03 = ob_get_clean();
 
   	ob_start(); ?>
-  		<div id='div-gpt-ad-1516133426824-3' style='height:75px; width:300px;'>
+  		<div id='div-gpt-ad-1516133426824-3' style='height:50px; width:170px;'>
   		<script>
   		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516133426824-3'); });
   		</script>
@@ -164,7 +164,7 @@ function lawyerist_products_list( $atts ) {
   	<?php $button04 = ob_get_clean();
 
   	ob_start(); ?>
-  		<div id='div-gpt-ad-1516133426824-4' style='height:75px; width:300px;'>
+  		<div id='div-gpt-ad-1516133426824-4' style='height:50px; width:170px;'>
   		<script>
   		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1516133426824-4'); });
   		</script>
