@@ -218,7 +218,7 @@ function lawyerist_products_list( $atts ) {
                     echo '<br />';
       	          }
 
-                echo '<a href="' . $product_page_URL . '#respond">Leave a review.</a>';
+                echo '<a href="' . $featured_page_URL . '#respond">Leave a review.</a>';
                 echo '</span>';
 
   		        }
