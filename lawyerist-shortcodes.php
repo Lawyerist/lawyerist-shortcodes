@@ -127,7 +127,7 @@ function lawyerist_products_list( $atts ) {
   	);
 
   	// Counter for inserting mobile ads and other stuff.
-  	$page_num = 1;
+  	$product_num = 1;
 
 
   	// Create the trial button variables.
@@ -226,18 +226,18 @@ function lawyerist_products_list( $atts ) {
   					echo '</div>'; // End .title_container
 
   					echo '<div class="trial-button">';
-  						if ( $page_num == 1 ) { echo $button01; }
-  						elseif ( $page_num == 2 ) { echo $button02; }
-  						elseif ( $page_num == 3 ) { echo $button03; }
-  						elseif ( $page_num == 4 ) { echo $button04; }
-  						elseif ( $page_num == 5 ) { echo $button05; }
+  						if ( $product_num == 1 ) { echo $button01; }
+  						elseif ( $product_num == 2 ) { echo $button02; }
+  						elseif ( $product_num == 3 ) { echo $button03; }
+  						elseif ( $product_num == 4 ) { echo $button04; }
+  						elseif ( $product_num == 5 ) { echo $button05; }
   					echo '</div>';
 
   					echo '<div class="clear"></div>';
 
   					echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $featured_page_URL . '">Learn more about ' . $featured_page_title . '.</a></span>';
 
-  					$page_num++; // Increment counter.
+  					$product_num++; // Increment counter.
 
   				echo '</li>';
 
