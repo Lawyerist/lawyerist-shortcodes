@@ -129,49 +129,6 @@ function lawyerist_products_list( $atts ) {
   	// Counter for inserting mobile ads and other stuff.
   	$product_num = 1;
 
-
-  	// Create the trial button variables.
-  	ob_start(); ?>
-      <div id='div-gpt-ad-1517464941516-2' style='height:50px; width:170px;'>
-      <script>
-      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-2'); });
-      </script>
-      </div>
-  	<?php $button01 = ob_get_clean();
-
-  	ob_start(); ?>
-      <div id='div-gpt-ad-1517464941516-3' style='height:50px; width:170px;'>
-      <script>
-      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-3'); });
-      </script>
-      </div>
-  	<?php $button02 = ob_get_clean();
-
-  	ob_start(); ?>
-      <div id='div-gpt-ad-1517464941516-4' style='height:50px; width:170px;'>
-      <script>
-      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-4'); });
-      </script>
-      </div>
-  	<?php $button03 = ob_get_clean();
-
-  	ob_start(); ?>
-      <div id='div-gpt-ad-1517464941516-5' style='height:50px; width:170px;'>
-      <script>
-      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-5'); });
-      </script>
-      </div>
-  	<?php $button04 = ob_get_clean();
-
-  	ob_start(); ?>
-      <div id='div-gpt-ad-1517464941516-6' style='height:50px; width:170px;'>
-      <script>
-      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-6'); });
-      </script>
-      </div>
-  	<?php $button05 = ob_get_clean();
-
-
   	$featured_products_list_query = new WP_Query( $featured_products_list_query_args );
 
   	if ( $featured_products_list_query->post_count > 1 ) :
@@ -226,11 +183,66 @@ function lawyerist_products_list( $atts ) {
   					echo '</div>'; // End .title_container
 
   					echo '<div class="trial-button">';
-  						if ( $product_num == 1 ) { echo $button01; }
-  						elseif ( $product_num == 2 ) { echo $button02; }
-  						elseif ( $product_num == 3 ) { echo $button03; }
-  						elseif ( $product_num == 4 ) { echo $button04; }
-  						elseif ( $product_num == 5 ) { echo $button05; }
+  						if ( $product_num == 1 ) {
+
+                ob_start();
+                ?>
+                  <div id='div-gpt-ad-1517464941516-2' style='height:50px; width:170px;'>
+                  <script>
+                  googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-2'); });
+                  </script>
+                  </div>
+                <?php
+
+              } elseif ( $product_num == 2 ) {
+
+                ob_start();
+                ?>
+                  <div id='div-gpt-ad-1517464941516-3' style='height:50px; width:170px;'>
+                  <script>
+                  googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-3'); });
+                  </script>
+                  </div>
+                <?php
+
+              } elseif ( $product_num == 3 ) {
+
+                ob_start();
+                ?>
+                  <div id='div-gpt-ad-1517464941516-4' style='height:50px; width:170px;'>
+                  <script>
+                  googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-4'); });
+                  </script>
+                  </div>
+                <?php
+
+              } elseif ( $product_num == 4 ) {
+
+                ob_start();
+                ?>
+                  <div id='div-gpt-ad-1517464941516-5' style='height:50px; width:170px;'>
+                  <script>
+                  googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-5'); });
+                  </script>
+                  </div>
+                <?php
+
+              } elseif ( $product_num == 5 ) {
+
+                ob_start();
+                ?>
+                  <div id='div-gpt-ad-1517464941516-6' style='height:50px; width:170px;'>
+                  <script>
+                  googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-6'); });
+                  </script>
+                  </div>
+                <?php
+
+              }
+
+              $button = ob_get_clean();
+              echo $button;
+
   					echo '</div>';
 
   					echo '<div class="clear"></div>';
