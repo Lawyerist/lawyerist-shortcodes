@@ -288,62 +288,68 @@ function lawyerist_products_list( $atts ) {
 
 	if ( $product_list_query->post_count > 1 ) :
 
-    echo '<h2>Alphabetical List</h2>';
+    ob_start();
 
-		echo '<ul class="product-pages-list">';
+      echo '<h2>Alphabetical List</h2>';
 
-			// Start the Loop.
-			while ( $product_list_query->have_posts() ) : $product_list_query->the_post();
+  		echo '<ul class="product-pages-list">';
 
-				$product_page_ID		= get_the_ID();
-				$product_page_title	= the_title( '', '', FALSE );
-				$product_page_URL		= get_permalink();
+  			// Start the Loop.
+  			while ( $product_list_query->have_posts() ) : $product_list_query->the_post();
 
-        $seo_descr  = get_post_meta( $product_page_ID, '_yoast_wpseo_metadesc', true );
+  				$product_page_ID		= get_the_ID();
+  				$product_page_title	= the_title( '', '', FALSE );
+  				$product_page_URL		= get_permalink();
 
-        if ( !empty( $seo_descr ) ) {
-          $page_excerpt = $seo_descr;
-        } else {
-          $page_excerpt = get_the_excerpt();
-        }
+          $seo_descr  = get_post_meta( $product_page_ID, '_yoast_wpseo_metadesc', true );
 
-				echo '<li class="listing-item">';
+          if ( !empty( $seo_descr ) ) {
+            $page_excerpt = $seo_descr;
+          } else {
+            $page_excerpt = get_the_excerpt();
+          }
 
-					if ( has_post_thumbnail() ) {
-						echo '<a class="image" href="' . $product_page_URL . '">';
-						the_post_thumbnail( 'thumbnail' );
-						echo '</a>';
-					}
+  				echo '<li class="listing-item">';
 
-					echo '<a class="title" href="' . $product_page_URL . '">' . $product_page_title . '</a>';
+  					if ( has_post_thumbnail() ) {
+  						echo '<a class="image" href="' . $product_page_URL . '">';
+  						the_post_thumbnail( 'thumbnail' );
+  						echo '</a>';
+  					}
 
-					if ( function_exists( 'wp_review_show_total' ) ) {
+  					echo '<a class="title" href="' . $product_page_URL . '">' . $product_page_title . '</a>';
 
-	          $rating = get_post_meta( $product_page_ID, 'wp_review_comments_rating_value', true );
+  					if ( function_exists( 'wp_review_show_total' ) ) {
 
-            echo '<span class="user-rating">';
+  	          $rating = get_post_meta( $product_page_ID, 'wp_review_comments_rating_value', true );
 
-              if ( !empty( $rating ) ) {
-                wp_review_show_total();
-                echo '<br />';
-              }
+              echo '<span class="user-rating">';
 
-            echo '<a href="' . $product_page_URL . '#respond">Leave a review.</a>';
-            echo '</span>';
+                if ( !empty( $rating ) ) {
+                  wp_review_show_total();
+                  echo '<br />';
+                }
 
-	        }
+              echo '<a href="' . $product_page_URL . '#respond">Leave a review.</a>';
+              echo '</span>';
 
-					echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $product_page_URL . '">Learn more about ' . $product_page_title . '.</a></span>';
+  	        }
 
-				echo '</li>';
+  					echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $product_page_URL . '">Learn more about ' . $product_page_title . '.</a></span>';
 
-			endwhile;
+  				echo '</li>';
 
-			wp_reset_postdata();
+  			endwhile;
 
-		echo '</ul>';
+  			wp_reset_postdata();
+
+  		echo '</ul>';
+
+    $all_products = ob_get_clean();
 
 	endif; // End product list.
+
+  return $all_products;
 
 }
 
@@ -420,7 +426,7 @@ function lawyerist_get_scorecard_grade( $atts ) {
         <p class="alert">Regardless of your score, it looks like your goals need your attention. Before you do anything else, make sure you take the time to set goals and make sure you can achieve them at this firm.</p>
 
       <?php
-      
+
       }
 
     $scorecard_results = ob_get_clean();
