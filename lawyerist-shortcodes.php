@@ -17,6 +17,7 @@ Author URI: http://samglover.net
 - Testimonials
 - Get Script
 - List Products
+- Get Scorecard Grade
 */
 
 
@@ -347,3 +348,84 @@ function lawyerist_products_list( $atts ) {
 }
 
 add_shortcode( 'list-products', 'lawyerist_products_list' );
+
+
+/*------------------------------
+Get Scorecard Grade
+
+Returns the Scorecard grade for a given score.
+Only useful in Gravity Forms confirmations.
+------------------------------*/
+
+function lawyerist_get_scorecard_grade( $atts ) {
+
+    $atts = shortcode_atts( array(
+        'form_id'   => '',
+        'raw_score' => '',
+        'q1'        => '',
+        'q2'        => '',
+        'q3'        => '',
+    ), $atts );
+
+    $raw_score    = $atts['raw_score'];
+    $goals_score  = $atts['q1'] + $atts['q2'] + $atts['q3'];
+
+    // Checks to see which form was submitted.
+    switch ( $atts['form_id'] ) {
+      case 45: // Small Firm Scorecard
+        $total = 500;
+        break;
+      case 46: // Solo Practice Scorecard
+        $total = 400;
+        break;
+    }
+
+    // Calculates the % score.
+    $score = ( $raw_score / $total ) * 100;
+
+    switch ( $score ) {
+      case ( $score < 60 ):
+        $grade = 'F';
+        break;
+      case ( $score >= 60 && $score < 70 ):
+        $grade = 'D';
+        break;
+      case ( $score >= 70 && $score < 80 ):
+        $grade = 'C';
+        break;
+      case ( $score >= 80 && $score < 90 ):
+        $grade = 'B';
+        break;
+      case ( $score >= 90 ):
+        $grade = 'A';
+        break;
+    }
+
+    ob_start();
+
+      ?>
+
+        <div id="scorecard_results">
+          <div class="grade_label">Your Firm's Score</div>
+          <div class="grade"><?php echo $grade; ?></div>
+          <div class="score"><?php echo round( $score ); ?>/100</div>
+        </div>
+
+      <?php
+
+      if ( $goals_score <= 15 ) {
+
+      ?>
+
+        <p class="alert">Regardless of your score, it looks like your goals need your attention. Before you do anything else, make sure you take the time to set goals and make sure you can achieve them at this firm.</p>
+
+      <?php
+      
+      }
+
+    $scorecard_results = ob_get_clean();
+
+    return $scorecard_results;
+
+}
+add_shortcode( 'get_grade', 'lawyerist_get_scorecard_grade' );
