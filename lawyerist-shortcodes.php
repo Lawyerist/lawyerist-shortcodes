@@ -167,7 +167,8 @@ function lawyerist_products_list( $atts ) {
 
   						if ( function_exists( 'wp_review_show_total' ) ) {
 
-                $rating = get_post_meta( $featured_page_ID, 'wp_review_comments_rating_value', true );
+                $rating       = get_post_meta( $featured_page_ID, 'wp_review_comments_rating_value', true );
+                $num_reviews  = get_post_meta( $featured_page_ID, 'wp_review_comments_rating_count', true );
 
                 echo '<span class="user-rating">';
 
@@ -176,7 +177,7 @@ function lawyerist_products_list( $atts ) {
                     echo '<br />';
       	          }
 
-                echo '<a href="' . $featured_page_URL . '#respond">Leave a review.</a>';
+                echo '<a href="' . $featured_page_URL . '#respond">Leave a review.</a> (' . $num_reviews . ' reviews)';
                 echo '</span>';
 
   		        }
