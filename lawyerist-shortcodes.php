@@ -165,27 +165,25 @@ function lawyerist_products_list( $atts ) {
 
   						echo '<a class="title" href="' . $featured_page_URL . '">' . $featured_page_title . '</a>';
 
-  						if ( function_exists( 'wp_review_show_total' ) ) {
+              // Rating
+              if ( comments_open() && function_exists( 'wp_review_show_total' ) ) {
 
                 $rating       = get_post_meta( $featured_page_ID, 'wp_review_comments_rating_value', true );
-                $num_reviews  = get_post_meta( $featured_page_ID, 'wp_review_comments_rating_count', true );
-                if ( $num_reviews == 1 ) {
-                  $review_s = 'review';
-                } else {
-                  $review_s = 'reviews';
-                }
+                $review_count = lawyerist_get_review_count();
 
-                echo '<span class="user-rating">';
+                echo '<div class="user-rating">';
 
-      	          if ( !empty( $rating ) ) {
-      	            wp_review_show_total();
-                    echo '<br />';
-      	          }
+                  if ( !empty( $rating ) ) {
+                    echo '<a href="' . $featured_page_URL . '#comments">';
+                      wp_review_show_total();
+                    echo ' (' . $review_count . ')</a>';
+                  } else {
+                    echo '<a href="' . $featured_page_URL . '#respond">Leave a review.</a>';
+                  }
 
-                echo '<a href="' . $featured_page_URL . '#respond">Leave a review.</a> (' . $num_reviews . ' ' . $review_s . ')';
-                echo '</span>';
+                 echo '</div>';
 
-  		        }
+              }
 
   					echo '</div>'; // End .title_container
 
@@ -325,21 +323,25 @@ function lawyerist_products_list( $atts ) {
 
   					echo '<a class="title" href="' . $product_page_URL . '">' . $product_page_title . '</a>';
 
-  					if ( function_exists( 'wp_review_show_total' ) ) {
+            // Rating
+            if ( comments_open() && function_exists( 'wp_review_show_total' ) ) {
 
-  	          $rating = get_post_meta( $product_page_ID, 'wp_review_comments_rating_value', true );
+              $rating       = get_post_meta( $product_page_ID, 'wp_review_comments_rating_value', true );
+              $review_count = lawyerist_get_review_count();
 
-              echo '<span class="user-rating">';
+              echo '<div class="user-rating">';
 
                 if ( !empty( $rating ) ) {
-                  wp_review_show_total();
-                  echo '<br />';
+                  echo '<a href="' . $product_page_URL . '#comments">';
+                    wp_review_show_total();
+                  echo ' (' . $review_count . ')</a>';
+                } else {
+                  echo '<a href="' . $product_page_URL . '#respond">Leave a review.</a>';
                 }
 
-              echo '<a href="' . $product_page_URL . '#respond">Leave a review.</a>';
-              echo '</span>';
+               echo '</div>';
 
-  	        }
+            }
 
   					echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $product_page_URL . '">Learn more about ' . $product_page_title . '.</a></span>';
 
