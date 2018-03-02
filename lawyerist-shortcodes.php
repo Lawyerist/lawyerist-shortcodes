@@ -443,7 +443,7 @@ function lawyerist_get_scorecard_grade( $atts ) {
 
       }
 
-      echo '<div id="interpret_results"></div>'
+      echo '<div id="interpret_results"></div>';
 
     $scorecard_results = ob_get_clean();
 
