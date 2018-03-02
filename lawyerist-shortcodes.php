@@ -420,9 +420,15 @@ function lawyerist_get_scorecard_grade( $atts ) {
       ?>
 
         <div id="scorecard_results">
-          <div class="grade_label">Your Firm's Score</div>
-          <div class="grade"><?php echo $grade; ?></div>
-          <div class="score"><?php echo round( $score ); ?>/100</div>
+          <div id="grade_box">
+            <div class="grade_label">Your Firm's Score</div>
+            <div class="grade"><?php echo $grade; ?></div>
+            <div class="score"><?php echo round( $score ); ?>/100</div>
+          </div>
+          <div id="get_results">
+            <a class="button" href="#interpret_results">Interpret Your Results</a>
+          </div>
+          <div class="clear"></div>
         </div>
 
       <?php
@@ -436,6 +442,8 @@ function lawyerist_get_scorecard_grade( $atts ) {
       <?php
 
       }
+
+      echo '<div id="interpret_results"></div>'
 
     $scorecard_results = ob_get_clean();
 
