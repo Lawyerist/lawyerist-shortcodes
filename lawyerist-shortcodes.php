@@ -426,7 +426,7 @@ function lawyerist_get_scorecard_grade( $atts ) {
             <div class="score"><?php echo round( $score ); ?>/100</div>
           </div>
           <div id="get_results">
-            <a class="button" href="#interpret_results">Interpret Your Results</a>
+            <a class="button" href="#interpret_results">Interpret Your Results</a>=
           </div>
           <div class="clear"></div>
         </div>
@@ -444,6 +444,8 @@ function lawyerist_get_scorecard_grade( $atts ) {
       }
 
       echo '<div id="interpret_results"></div>';
+
+      echo '<p><em>Save your Scorecard by printing this page to PDF or paper.</em></p>';
 
     $scorecard_results = ob_get_clean();
 
