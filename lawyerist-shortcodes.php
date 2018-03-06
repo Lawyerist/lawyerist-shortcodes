@@ -420,18 +420,6 @@ function lawyerist_get_scorecard_grade( $atts ) {
 
     ob_start();
 
-      echo '$raw_score:';
-      var_dump( $raw_score );
-      echo '<br />';
-      echo '$total:';
-      var_dump( $total );
-      echo '<br />';
-      echo '$score:';
-      var_dump( $score );
-      echo '<br />';
-      echo '$goals_score:';
-      var_dump ( $goals_score );
-
       ?>
 
         <div id="scorecard_results">
