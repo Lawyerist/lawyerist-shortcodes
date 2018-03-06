@@ -437,7 +437,7 @@ function lawyerist_get_scorecard_grade( $atts ) {
 
       ?>
 
-        <p class="alert">Regardless of your score, it looks like your goals need your attention. Before you do anything else, make sure you take the time to set goals and make sure you can achieve them at this firm.</p>
+        <p class="alert">Regardless of your overall score, it looks like your goals need your attention. Keep reading for more information.</p>
 
       <?php
 
