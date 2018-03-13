@@ -426,7 +426,7 @@ function lawyerist_get_scorecard_grade( $atts ) {
           <div id="grade_box">
             <div class="grade_label">Your Firm's Score</div>
             <div class="grade"><?php echo $grade; ?></div>
-            <div class="score"><?php echo round( $score, 0 ); ?>/100</div>
+            <div class="score"><?php echo $raw_score; ?>/<?php echo $total; ?></div>
           </div>
           <div id="get_results">
             <a class="button" href="#interpret_results">Interpret Your Results</a>
