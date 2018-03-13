@@ -132,7 +132,7 @@ function lawyerist_products_list( $atts ) {
 
   	$featured_products_list_query = new WP_Query( $featured_products_list_query_args );
 
-  	if ( $featured_products_list_query->post_count > 1 ) :
+  	if ( $featured_products_list_query->have_posts() ) :
 
   		echo '<div class="featured_products_heading">Featured Products</div>';
 
