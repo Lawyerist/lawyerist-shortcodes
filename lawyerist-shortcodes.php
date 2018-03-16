@@ -188,60 +188,63 @@ function lawyerist_products_list( $atts ) {
   					echo '</div>'; // End .title_container
 
   					echo '<div class="trial-button">';
-  						if ( $product_num == 1 ) {
 
-                ob_start();
-                ?>
-                  <div id='div-gpt-ad-1517464941516-2' style='height:50px; width:170px;'>
-                  <script>
-                  googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-2'); });
-                  </script>
-                  </div>
-                <?php
+              switch ( $product_num ) {
 
-              } elseif ( $product_num == 2 ) {
+                case ( $product_num == 1 ):
+                  ob_start();
+                  ?>
+                    <div id='div-gpt-ad-1517464941516-2' style='height:50px; width:170px;'>
+                    <script>
+                    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-2'); });
+                    </script>
+                    </div>
+                  <?php
+                  break;
 
-                ob_start();
-                ?>
-                  <div id='div-gpt-ad-1517464941516-3' style='height:50px; width:170px;'>
-                  <script>
-                  googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-3'); });
-                  </script>
-                  </div>
-                <?php
+                case ( $product_num == 2 ):
+                  ob_start();
+                  ?>
+                    <div id='div-gpt-ad-1517464941516-3' style='height:50px; width:170px;'>
+                    <script>
+                    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-3'); });
+                    </script>
+                    </div>
+                  <?php
+                  break;
 
-              } elseif ( $product_num == 3 ) {
+                case ( $product_num == 3 ):
+                  ob_start();
+                  ?>
+                    <div id='div-gpt-ad-1517464941516-4' style='height:50px; width:170px;'>
+                    <script>
+                    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-4'); });
+                    </script>
+                    </div>
+                  <?php
+                  break;
 
-                ob_start();
-                ?>
-                  <div id='div-gpt-ad-1517464941516-4' style='height:50px; width:170px;'>
-                  <script>
-                  googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-4'); });
-                  </script>
-                  </div>
-                <?php
+                case ( $product_num == 4 ):
+                  ob_start();
+                  ?>
+                    <div id='div-gpt-ad-1517464941516-5' style='height:50px; width:170px;'>
+                    <script>
+                    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-5'); });
+                    </script>
+                    </div>
+                  <?php
+                  break;
 
-              } elseif ( $product_num == 4 ) {
-
-                ob_start();
-                ?>
-                  <div id='div-gpt-ad-1517464941516-5' style='height:50px; width:170px;'>
-                  <script>
-                  googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-5'); });
-                  </script>
-                  </div>
-                <?php
-
-              } elseif ( $product_num == 5 ) {
-
-                ob_start();
-                ?>
-                  <div id='div-gpt-ad-1517464941516-6' style='height:50px; width:170px;'>
-                  <script>
-                  googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-6'); });
-                  </script>
-                  </div>
-                <?php
+                case ( $product_num == 5 ):
+                  ob_start();
+                  ?>
+                    <div id='div-gpt-ad-1517464941516-6' style='height:50px; width:170px;'>
+                    <script>
+                    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-6'); });
+                    </script>
+                    </div>
+                  <?php
+                  break;
 
               }
 
