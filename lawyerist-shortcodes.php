@@ -394,6 +394,7 @@ function lawyerist_get_scorecard_grade( $atts ) {
       case $form_id == '45': // Small Firm Scorecard
         $total = 500;
         break;
+        
       case $form_id == 47: // Solo Practice Scorecard
         $total = 400;
         break;
@@ -404,21 +405,27 @@ function lawyerist_get_scorecard_grade( $atts ) {
     $score = ( $raw_score / $total ) * 100;
 
     switch ( $score ) {
+
       case ( $score < 60 ):
         $grade = 'F';
         break;
+
       case ( $score >= 60 && $score < 70 ):
         $grade = 'D';
         break;
+
       case ( $score >= 70 && $score < 80 ):
         $grade = 'C';
         break;
+
       case ( $score >= 80 && $score < 90 ):
         $grade = 'B';
         break;
+
       case ( $score >= 90 ):
         $grade = 'A';
         break;
+
     }
 
     ob_start();
