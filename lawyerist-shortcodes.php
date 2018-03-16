@@ -176,7 +176,7 @@ function lawyerist_products_list( $atts ) {
                   if ( !empty( $rating ) ) {
                     echo '<a href="' . $featured_page_URL . '#comments">';
                       wp_review_show_total();
-                    echo ' (' . $review_count . ')</a>';
+                    echo ' <span class="review_count">(' . $review_count . ')</span></a>';
                   } else {
                     echo '<a href="' . $featured_page_URL . '#respond">Leave a review.</a>';
                   }
@@ -337,7 +337,7 @@ function lawyerist_products_list( $atts ) {
                 if ( !empty( $rating ) ) {
                   echo '<a href="' . $product_page_URL . '#comments">';
                     wp_review_show_total();
-                  echo ' (' . $review_count . ')</a>';
+                  echo ' <span class="review_count">(' . $review_count . ')</span></a>';
                 } else {
                   echo '<a href="' . $product_page_URL . '#respond">Leave a review.</a>';
                 }
@@ -394,7 +394,7 @@ function lawyerist_get_scorecard_grade( $atts ) {
       case $form_id == '45': // Small Firm Scorecard
         $total = 500;
         break;
-        
+
       case $form_id == 47: // Solo Practice Scorecard
         $total = 400;
         break;
