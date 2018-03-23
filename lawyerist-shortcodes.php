@@ -18,6 +18,7 @@ Author URI: http://samglover.net
 - Get Script
 - List Products
 - Get Scorecard Grade
+- List Authors
 */
 
 
@@ -496,3 +497,57 @@ function lawyerist_get_scorecard_grade( $atts ) {
 
 }
 add_shortcode( 'get_grade', 'lawyerist_get_scorecard_grade' );
+
+
+/*------------------------------
+List Authors
+------------------------------*/
+
+function list_authors_shortcode() {
+
+  global $wpdb;
+
+  $blog_id = get_current_blog_id();
+
+  $author_args = array(
+    'has_published_posts' => array( 'post', 'page' ),
+    'orderby'             => 'post_count',
+    'order'               => 'DESC',
+    'role__in'            => array( 'Contributor' ),
+  );
+
+  $authors = new WP_User_Query( $author_args );
+
+  ob_start();
+
+    echo '<div class="gallery gallery-columns-4">';
+
+    if ( !empty( $authors->results ) ) {
+
+      foreach ( $authors->results as $author ) {
+
+        if ( count_user_posts( $author->ID ) > 0 ) {
+          echo '<dl class="gallery-item">';
+          echo '<dt class="gallery-icon">' . get_avatar( $author->ID, 150 ) . '</dt>';
+          echo '<dd class="wp-caption-text gallery-caption"><a href="' . get_author_posts_url( $author->ID ) . '">' . $author->display_name . '</a></dd>';
+          echo '</dl>';
+        }
+
+      }
+
+    } else {
+
+      echo 'No contributors found.';
+
+    }
+
+    echo '</div>';
+    echo '<div class="clear"></div>';
+
+  $authors_list = ob_get_clean();
+
+  return $authors_list;
+
+}
+
+add_shortcode( 'list-authors', 'list_authors_shortcode' );
