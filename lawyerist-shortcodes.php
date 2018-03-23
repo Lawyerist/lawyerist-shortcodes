@@ -518,6 +518,8 @@ function list_authors_shortcode() {
 
   $authors = new WP_User_Query( $author_args );
 
+  $author_num = 1; // Counter for inserting mobile ads and other stuff.
+
   ob_start();
 
     echo '<div class="gallery gallery-columns-4">';
@@ -527,11 +529,21 @@ function list_authors_shortcode() {
       foreach ( $authors->results as $author ) {
 
         if ( count_user_posts( $author->ID ) > 0 ) {
+
           echo '<dl class="gallery-item">';
           echo '<dt class="gallery-icon">' . get_avatar( $author->ID, 150 ) . '</dt>';
           echo '<dd class="wp-caption-text gallery-caption"><a href="' . get_author_posts_url( $author->ID ) . '">' . $author->display_name . '</a></dd>';
           echo '</dl>';
+          
         }
+
+        if ( $author_num % 4 == 0 ) {
+
+          echo '<div class="clear"></div>';
+
+        }
+
+        $author_num++;
 
       }
 
