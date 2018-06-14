@@ -206,7 +206,7 @@ function lawyerist_products_list( $atts ) {
             if ( has_trial_button( $featured_page_ID ) ) {
 
               echo '<div class="list-products-trial-button">';
-              echo  trial_button( $featured_page_ID );
+                echo  trial_button( $featured_page_ID );
               echo '</div>';
 
             }
@@ -288,37 +288,51 @@ function lawyerist_products_list( $atts ) {
   						echo '</a>';
   					}
 
-            if ( !empty( $rating ) ) {
-
-              echo '<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">';
-              echo '<a class="title" href="' . $product_page_URL . '"><span itemprop="itemReviewed">' . $product_page_title . '</span></a>';
-
-            } else {
-
-              echo '<a class="title" href="' . $product_page_URL . '">' . $product_page_title . '</a>';
-
-            }
-
-            // Rating
-            echo '<div class="user-rating">';
+            echo '<div class="title_container">';
 
               if ( !empty( $rating ) ) {
 
-                echo '<a href="' . $product_page_URL . '#comments">';
-                  wp_review_show_total();
-                echo ' <span class="review_count">(' . $review_count . ')</span></a>';
+                echo '<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">';
+                echo '<a class="title" href="' . $product_page_URL . '"><span itemprop="itemReviewed">' . $product_page_title . '</span></a>';
 
               } else {
 
-                echo '<a href="' . $product_page_URL . '#respond">Leave a review.</a>';
+                echo '<a class="title" href="' . $product_page_URL . '">' . $product_page_title . '</a>';
 
               }
 
-              echo '</div>'; // End .user_rating.
+              // Rating
+              echo '<div class="user-rating">';
 
-              if ( !empty( $rating ) ) {
-                echo '</div>'; // End aggregateRating schema.
+                if ( !empty( $rating ) ) {
+
+                  echo '<a href="' . $product_page_URL . '#comments">';
+                    wp_review_show_total();
+                  echo ' <span class="review_count">(' . $review_count . ')</span></a>';
+
+                } else {
+
+                  echo '<a href="' . $product_page_URL . '#respond">Leave a review.</a>';
+
+                }
+
+                echo '</div>'; // End .user_rating.
+
+                if ( !empty( $rating ) ) {
+                  echo '</div>'; // End aggregateRating schema.
+                }
+
+              echo '</div>'; // End .title_container.
+
+              if ( has_trial_button( $product_page_ID ) ) {
+
+                echo '<div class="list-products-trial-button">';
+                  echo  trial_button( $product_page_ID );
+                echo '</div>';
+
               }
+
+    					echo '<div class="clear"></div>';
 
   					echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $product_page_URL . '">Learn more about ' . $product_page_title . '.</a></span>';
 
