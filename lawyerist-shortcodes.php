@@ -114,11 +114,10 @@ function lawyerist_products_list( $atts ) {
 
     // Query variables.
   	$featured_products_list_query_args = array(
-  		'order'						=> 'ASC',
-  		'orderby'					=> 'title',
+  		'orderby'					=> 'rand',
   		'post_parent'			=> $atts['portal'],
   		'post_type'				=> 'page',
-  		'posts_per_page'	=> 5, // Determines how many page are displayed in the list.
+  		'posts_per_page'	=> -1, // Determines how many page are displayed in the list.
   		'tax_query' => array(
   			array(
   				'taxonomy' => 'page_type',
