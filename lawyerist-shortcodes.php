@@ -128,9 +128,6 @@ function lawyerist_products_list( $atts ) {
   		),
   	);
 
-  	// Counter for inserting mobile ads and other stuff.
-  	$product_num = 1;
-
   	$featured_products_list_query = new WP_Query( $featured_products_list_query_args );
 
   	if ( $featured_products_list_query->have_posts() ) :
@@ -206,77 +203,17 @@ function lawyerist_products_list( $atts ) {
 
   					echo '</div>'; // End .title_container.
 
-  					echo '<div class="trial-button">';
+            if ( has_trial_button( $featured_page_ID ) ) {
 
-              switch ( $product_num ) {
+              echo '<div class="list-products-trial-button">';
+                echo  trial_button( $featured_page_ID );
+              echo '</div>';
 
-                case ( $product_num == 1 ):
-                  ob_start();
-                  ?>
-                    <div id='div-gpt-ad-1517464941516-2' style='height:50px; width:170px;'>
-                    <script>
-                    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-2'); });
-                    </script>
-                    </div>
-                  <?php
-                  break;
-
-                case ( $product_num == 2 ):
-                  ob_start();
-                  ?>
-                    <div id='div-gpt-ad-1517464941516-3' style='height:50px; width:170px;'>
-                    <script>
-                    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-3'); });
-                    </script>
-                    </div>
-                  <?php
-                  break;
-
-                case ( $product_num == 3 ):
-                  ob_start();
-                  ?>
-                    <div id='div-gpt-ad-1517464941516-4' style='height:50px; width:170px;'>
-                    <script>
-                    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-4'); });
-                    </script>
-                    </div>
-                  <?php
-                  break;
-
-                case ( $product_num == 4 ):
-                  ob_start();
-                  ?>
-                    <div id='div-gpt-ad-1517464941516-5' style='height:50px; width:170px;'>
-                    <script>
-                    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-5'); });
-                    </script>
-                    </div>
-                  <?php
-                  break;
-
-                case ( $product_num == 5 ):
-                  ob_start();
-                  ?>
-                    <div id='div-gpt-ad-1517464941516-6' style='height:50px; width:170px;'>
-                    <script>
-                    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1517464941516-6'); });
-                    </script>
-                    </div>
-                  <?php
-                  break;
-
-              }
-
-              $button = ob_get_clean();
-              echo $button;
-
-  					echo '</div>';
+            }
 
   					echo '<div class="clear"></div>';
 
   					echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $featured_page_URL . '">Learn more about ' . $featured_page_title . '.</a></span>';
-
-  					$product_num++; // Increment counter.
 
   				echo '</li>';
 
@@ -351,37 +288,51 @@ function lawyerist_products_list( $atts ) {
   						echo '</a>';
   					}
 
-            if ( !empty( $rating ) ) {
-
-              echo '<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">';
-              echo '<a class="title" href="' . $product_page_URL . '"><span itemprop="itemReviewed">' . $product_page_title . '</span></a>';
-
-            } else {
-
-              echo '<a class="title" href="' . $product_page_URL . '">' . $product_page_title . '</a>';
-
-            }
-
-            // Rating
-            echo '<div class="user-rating">';
+            echo '<div class="title_container">';
 
               if ( !empty( $rating ) ) {
 
-                echo '<a href="' . $product_page_URL . '#comments">';
-                  wp_review_show_total();
-                echo ' <span class="review_count">(' . $review_count . ')</span></a>';
+                echo '<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">';
+                echo '<a class="title" href="' . $product_page_URL . '"><span itemprop="itemReviewed">' . $product_page_title . '</span></a>';
 
               } else {
 
-                echo '<a href="' . $product_page_URL . '#respond">Leave a review.</a>';
+                echo '<a class="title" href="' . $product_page_URL . '">' . $product_page_title . '</a>';
 
               }
 
-              echo '</div>'; // End .user_rating.
+              // Rating
+              echo '<div class="user-rating">';
 
-              if ( !empty( $rating ) ) {
-                echo '</div>'; // End aggregateRating schema.
+                if ( !empty( $rating ) ) {
+
+                  echo '<a href="' . $product_page_URL . '#comments">';
+                    wp_review_show_total();
+                  echo ' <span class="review_count">(' . $review_count . ')</span></a>';
+
+                } else {
+
+                  echo '<a href="' . $product_page_URL . '#respond">Leave a review.</a>';
+
+                }
+
+                echo '</div>'; // End .user_rating.
+
+                if ( !empty( $rating ) ) {
+                  echo '</div>'; // End aggregateRating schema.
+                }
+
+              echo '</div>'; // End .title_container.
+
+              if ( has_trial_button( $product_page_ID ) ) {
+
+                echo '<div class="list-products-trial-button">';
+                  echo  trial_button( $product_page_ID );
+                echo '</div>';
+
               }
+
+    					echo '<div class="clear"></div>';
 
   					echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $product_page_URL . '">Learn more about ' . $product_page_title . '.</a></span>';
 
@@ -534,7 +485,7 @@ function list_authors_shortcode() {
           echo '<dt class="gallery-icon">' . get_avatar( $author->ID, 150 ) . '</dt>';
           echo '<dd class="wp-caption-text gallery-caption"><a href="' . get_author_posts_url( $author->ID ) . '">' . $author->display_name . '</a></dd>';
           echo '</dl>';
-          
+
         }
 
         if ( $author_num % 4 == 0 ) {
