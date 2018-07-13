@@ -462,6 +462,7 @@ function list_authors_shortcode() {
 
   $author_args = array(
     'has_published_posts' => array( 'post', 'page' ),
+    'exclude'             => array( 37 ),
     'orderby'             => 'post_count',
     'order'               => 'DESC',
     'role__in'            => array( 'Contributor' ),
