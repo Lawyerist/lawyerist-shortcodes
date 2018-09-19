@@ -137,16 +137,13 @@ function lawyerist_child_pages_list( $atts ) {
             // Starts the link container. Makes for big click targets!
   					echo '<a href="' . $child_page_URL . '" title="' . $child_page_title . '">';
 
+              if ( has_post_thumbnail() ) { the_post_thumbnail( 'thumbnail' ); }
+
               echo '<div class="headline_excerpt">';
-
-      					if ( has_post_thumbnail() ) { the_post_thumbnail( 'thumbnail' ); }
-
                 echo '<h2 class="headline" title="' . $child_page_title . '">' . $child_page_title . '</h2>';
-
-                // Clearfix
-  							echo '<div class="clear"></div>';
-
               echo '</div>'; // Close .headline_excerpt.
+
+              echo '<div class="clear"></div>';
 
     				echo '</a>'; // This closes the link container.
 
