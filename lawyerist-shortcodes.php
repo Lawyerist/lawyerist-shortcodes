@@ -16,6 +16,7 @@ Author URI: http://samglover.net
 - Pullouts
 - Testimonials
 - Get Script
+- List Child Pages
 - List Products
 - Get Scorecard Grade
 - List Authors
@@ -91,6 +92,81 @@ function lawyerist_get_script_shortcode( $atts ) {
 
 }
 add_shortcode( 'get-script', 'lawyerist_get_script_shortcode' );
+
+
+/*------------------------------
+List Child Pages
+------------------------------*/
+
+function lawyerist_child_pages_list( $atts ) {
+
+	$parent   = get_the_ID();
+
+	// Shortcode attributes.
+	$atts = shortcode_atts( array(
+    'portal' => $parent,
+  ), $atts );
+
+  // Query variables.
+	$child_pages_list_query_args = array(
+    'order'           => 'ASC',
+    'orderby'         => 'menu_order',
+		'post_parent'			=> $atts['portal'],
+    'posts_per_page'  => -1,
+		'post_type'				=> 'page',
+	);
+
+	$child_pages_list_query = new WP_Query( $child_pages_list_query_args );
+
+	if ( $child_pages_list_query->have_posts() ) :
+
+    ob_start();
+
+      echo '<div id="child_pages_list">';
+
+  			// Start the Loop.
+  			while ( $child_pages_list_query->have_posts() ) : $child_pages_list_query->the_post();
+
+  				$child_page_title	  = the_title( '', '', FALSE );
+  				$child_page_URL     = get_permalink();
+
+          echo '<div ' ;
+    			post_class( 'index_post_container' );
+  				echo '>';
+
+            // Starts the link container. Makes for big click targets!
+  					echo '<a href="' . $child_page_URL . '" title="' . $child_page_title . '">';
+
+              echo '<div class="headline_excerpt">';
+
+      					if ( has_post_thumbnail() ) { the_post_thumbnail( 'thumbnail' ); }
+
+                echo '<h2 class="headline" title="' . $child_page_title . '">' . $child_page_title . '</h2>';
+
+                // Clearfix
+  							echo '<div class="clear"></div>';
+
+              echo '</div>'; // Close .headline_excerpt.
+
+    				echo '</a>'; // This closes the link container.
+
+          echo '</div>'; // This closes .index_post_container.
+
+  			endwhile;
+
+  			wp_reset_postdata();
+
+  		echo '</div>'; // End #child_pages
+
+    $all_child_pages = ob_get_clean();
+
+	endif; // End product list.
+
+  return $all_child_pages;
+
+}
+
+add_shortcode( 'list-child-pages', 'lawyerist_child_pages_list' );
 
 
 /*------------------------------
