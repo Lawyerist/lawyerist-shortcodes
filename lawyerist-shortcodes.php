@@ -158,13 +158,13 @@ function lawyerist_child_pages_list( $atts ) {
 
   			endwhile;
 
-  			wp_reset_postdata();
-
   		echo '</div>'; // End #child_pages
 
     $all_child_pages = ob_get_clean();
 
 	endif; // End product list.
+
+  wp_reset_postdata();
 
   return $all_child_pages;
 
