@@ -101,7 +101,6 @@ List Child Pages
 function lawyerist_child_pages_list( $atts ) {
 
 	$parent       = get_the_ID();
-  $parent_title = the_title( '', '', FALSE );
 
 	// Shortcode attributes.
 	$atts = shortcode_atts( array(
@@ -124,8 +123,6 @@ function lawyerist_child_pages_list( $atts ) {
     ob_start();
 
       echo '<div id="child_pages_list">';
-
-        echo '<div class="post_label child_pages_heading">' . $parent_title . ' Resource Pages</div>';
 
   			// Start the Loop.
   			while ( $child_pages_list_query->have_posts() ) : $child_pages_list_query->the_post();
