@@ -489,7 +489,7 @@ function lawyerist_affinity_partners_list( $atts ) {
             $partner_page_excerpt = get_the_excerpt();
           }
 
-  				echo '<li class="listing-item">';
+  				echo '<li class="listing-item shadow">';
 
   					if ( has_post_thumbnail() ) {
   						echo '<a class="image" href="' . $artner_page_URL . '">';
@@ -575,7 +575,7 @@ function lawyerist_affinity_partners_list( $atts ) {
             $partner_page_excerpt = get_the_excerpt();
           }
 
-          echo '<li class="listing-item">';
+          echo '<li class="listing-item shadow">';
 
             if ( has_post_thumbnail() ) {
               echo '<a class="image" href="' . $partner_page_URL . '">';
