@@ -505,7 +505,7 @@ function lawyerist_affinity_partners_list( $atts ) {
 
             echo '<div class="list-affinity-partners-claim-button">';
 
-    					echo '<a href="' . $partner_page_URL . '" target="_blank" class="button claim-button" rel="nofollow">Claim Your Discount</a>';
+    					echo '<a href="' . $partner_page_URL . '" class="button claim-button" rel="nofollow">Claim Your Discount</a>';
 
     				echo '</div>';
 
@@ -591,7 +591,7 @@ function lawyerist_affinity_partners_list( $atts ) {
 
             echo '<div class="list-affinity-partners-claim-button">';
 
-    					echo '<a href="' . $partner_page_URL . '" target="_blank" class="button claim-button" rel="nofollow">Claim Your Discount</a>';
+    					echo '<a href="' . $partner_page_URL . '" class="button claim-button" rel="nofollow">Claim Your Discount</a>';
 
     				echo '</div>';
 
