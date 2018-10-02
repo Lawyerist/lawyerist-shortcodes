@@ -589,6 +589,12 @@ function lawyerist_affinity_partners_list( $atts ) {
 
             echo '</div>'; // End .title_container.
 
+            echo '<div class="list-affinity-partners-claim-button">';
+
+    					echo '<a href="' . $partner_page_URL . '" target="_blank" class="button claim-button" rel="nofollow">Claim Your Discount</a>';
+
+    				echo '</div>';
+
             echo '<div class="clear"></div>';
 
             echo '<span class="excerpt">' . $partner_page_excerpt . '</span>';
