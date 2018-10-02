@@ -284,7 +284,13 @@ function lawyerist_products_list( $atts ) {
             if ( ( $country == ( US || CA ) ) && has_trial_button( $featured_page_ID ) ) {
 
               echo '<div class="list-products-trial-button">';
+
                 echo  trial_button( $featured_page_ID );
+
+                if ( function_exists( 'lawyerist_affinity_partner_button' ) ) {
+                    lawyerist_affinity_partner_button();
+                }
+                
               echo '</div>';
 
             }
