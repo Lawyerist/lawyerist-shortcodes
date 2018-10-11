@@ -290,7 +290,7 @@ function lawyerist_products_list( $atts ) {
                 if ( function_exists( 'lawyerist_affinity_partner_button' ) ) {
                     lawyerist_affinity_partner_button();
                 }
-                
+
               echo '</div>';
 
             }
@@ -476,7 +476,7 @@ function lawyerist_affinity_partners_list( $atts ) {
 
     ob_start();
 
-  		echo '<h2>Premier Partners</h2>';
+  		echo '<div class="affinity-partners-heading">Premier Partners</div>';
 
   		echo '<ul class="affinity-partners-list product-pages-list">';
 
@@ -560,7 +560,7 @@ function lawyerist_affinity_partners_list( $atts ) {
 
     ob_start();
 
-      echo '<h2>Community Partners</h2>';
+      echo '<div class="affinity-partners-heading">Community Partners</div>';
 
   		echo '<ul class="affinity-partners-list product-pages-list">';
 
