@@ -364,7 +364,9 @@ function lawyerist_products_list( $atts ) {
 
           }
 
-  				echo '<li class="listing-item">';
+  				echo '<li ';
+          post_class( 'listing-item' );
+          echo '>';
 
   					if ( has_post_thumbnail() ) {
   						echo '<a class="image" href="' . $product_page_URL . '">';
