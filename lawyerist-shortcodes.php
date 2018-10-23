@@ -247,7 +247,7 @@ function lawyerist_products_list( $atts ) {
 
   					echo '<div class="title_container">';
 
-              if ( !empty( $community_rating ) ) {
+              if ( !empty( $our_rating ) || !empty( $community_rating ) ) {
 
                 echo '<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">';
                 echo '<a class="title" href="' . $featured_page_URL . '"><span itemprop="itemReviewed">' . $featured_page_title . '</span></a>';
@@ -261,7 +261,7 @@ function lawyerist_products_list( $atts ) {
               // Rating
               echo '<div class="user-rating">';
 
-                if ( !empty( $community_rating ) ) {
+                if ( !empty( $our_rating ) || !empty( $community_rating ) ) {
 
                   echo '<a href="' . $featured_page_URL . '#comments">';
 
@@ -277,7 +277,7 @@ function lawyerist_products_list( $atts ) {
 
                echo '</div>'; // End .user_rating.
 
-               if ( !empty( $community_rating ) ) {
+               if ( !empty( $our_rating ) || !empty( $community_rating ) ) {
                  echo '</div>'; // End aggregateRating schema.
                }
 
