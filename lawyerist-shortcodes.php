@@ -232,8 +232,8 @@ function lawyerist_products_list( $atts ) {
           // Check for a rating.
           if ( comments_open() && function_exists( 'wp_review_show_total' ) ) {
 
-            $rating       = get_post_meta( $featured_page_ID, 'wp_review_comments_rating_value', true );
-            $review_count = lawyerist_get_review_count();
+            $community_rating       = get_post_meta( $featured_page_ID, 'wp_review_comments_rating_value', true );
+            $community_review_count = lawyerist_get_community_review_count();
 
           }
 
@@ -247,7 +247,7 @@ function lawyerist_products_list( $atts ) {
 
   					echo '<div class="title_container">';
 
-              if ( !empty( $rating ) ) {
+              if ( !empty( $community_rating ) ) {
 
                 echo '<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">';
                 echo '<a class="title" href="' . $featured_page_URL . '"><span itemprop="itemReviewed">' . $featured_page_title . '</span></a>';
@@ -261,11 +261,13 @@ function lawyerist_products_list( $atts ) {
               // Rating
               echo '<div class="user-rating">';
 
-                if ( !empty( $rating ) ) {
+                if ( !empty( $community_rating ) ) {
 
                   echo '<a href="' . $featured_page_URL . '#comments">';
-                    wp_review_show_total();
-                  echo ' <span class="review_count">(' . $review_count . ')</span></a>';
+
+                    echo lawyerist_community_rating();
+
+                  echo '</a>';
 
                 } else {
 
@@ -275,7 +277,7 @@ function lawyerist_products_list( $atts ) {
 
                echo '</div>'; // End .user_rating.
 
-               if ( !empty( $rating ) ) {
+               if ( !empty( $community_rating ) ) {
                  echo '</div>'; // End aggregateRating schema.
                }
 
@@ -359,8 +361,8 @@ function lawyerist_products_list( $atts ) {
           // Check for a rating.
           if ( comments_open() && function_exists( 'wp_review_show_total' ) ) {
 
-            $rating       = get_post_meta( $product_page_ID, 'wp_review_comments_rating_value', true );
-            $review_count = lawyerist_get_review_count();
+            $community_rating       = lawyerist_get_community_rating();
+            $community_review_count = lawyerist_get_community_review_count();
 
           }
 
@@ -376,7 +378,7 @@ function lawyerist_products_list( $atts ) {
 
             echo '<div class="title_container">';
 
-              if ( !empty( $rating ) ) {
+              if ( !empty( $our_rating ) || !empty( $community_rating ) ) {
 
                 echo '<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">';
                 echo '<a class="title" href="' . $product_page_URL . '"><span itemprop="itemReviewed">' . $product_page_title . '</span></a>';
@@ -390,11 +392,13 @@ function lawyerist_products_list( $atts ) {
               // Rating
               echo '<div class="user-rating">';
 
-                if ( !empty( $rating ) ) {
+                if ( !empty( $community_rating ) ) {
 
                   echo '<a href="' . $product_page_URL . '#comments">';
-                    wp_review_show_total();
-                  echo ' <span class="review_count">(' . $review_count . ')</span></a>';
+
+                    echo lawyerist_community_rating();
+
+                  echo '</a>';
 
                 } else {
 
@@ -404,7 +408,7 @@ function lawyerist_products_list( $atts ) {
 
                 echo '</div>'; // End .user_rating.
 
-                if ( !empty( $rating ) ) {
+                if ( !empty( $community_rating ) ) {
                   echo '</div>'; // End aggregateRating schema.
                 }
 
