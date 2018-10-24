@@ -265,7 +265,7 @@ function lawyerist_products_list( $atts ) {
 
                   echo '<a href="' . $featured_page_URL . '#comments">';
 
-                    echo lawyerist_community_rating();
+                    echo lawyerist_product_rating();
 
                   echo '</a>';
 
@@ -392,11 +392,11 @@ function lawyerist_products_list( $atts ) {
               // Rating
               echo '<div class="user-rating">';
 
-                if ( !empty( $community_rating ) ) {
+                if ( !empty( $our_rating ) || !empty( $community_rating ) ) {
 
                   echo '<a href="' . $product_page_URL . '#comments">';
 
-                    echo lawyerist_community_rating();
+                    echo lawyerist_product_rating();
 
                   echo '</a>';
 
@@ -408,7 +408,7 @@ function lawyerist_products_list( $atts ) {
 
                 echo '</div>'; // End .user_rating.
 
-                if ( !empty( $community_rating ) ) {
+                if ( !empty( $our_rating ) || !empty( $community_rating ) ) {
                   echo '</div>'; // End aggregateRating schema.
                 }
 
