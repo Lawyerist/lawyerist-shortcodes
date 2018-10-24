@@ -232,8 +232,7 @@ function lawyerist_products_list( $atts ) {
           // Check for a rating.
           if ( comments_open() && function_exists( 'wp_review_show_total' ) ) {
 
-            $community_rating       = get_post_meta( $featured_page_ID, 'wp_review_comments_rating_value', true );
-            $community_review_count = lawyerist_get_community_review_count();
+            $composite_rating = lawyerist_get_composite_rating();
 
           }
 
@@ -247,7 +246,7 @@ function lawyerist_products_list( $atts ) {
 
   					echo '<div class="title_container">';
 
-              if ( !empty( $our_rating ) || !empty( $community_rating ) ) {
+              if ( !empty( $composite_rating ) ) {
 
                 echo '<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">';
                 echo '<a class="title" href="' . $featured_page_URL . '"><span itemprop="itemReviewed">' . $featured_page_title . '</span></a>';
@@ -261,9 +260,9 @@ function lawyerist_products_list( $atts ) {
               // Rating
               echo '<div class="user-rating">';
 
-                if ( !empty( $our_rating ) || !empty( $community_rating ) ) {
+                if ( !empty( $composite_rating ) ) {
 
-                  echo '<a href="' . $featured_page_URL . '#comments">';
+                  echo '<a href="' . $featured_page_URL . '#rating">';
 
                     echo lawyerist_product_rating();
 
@@ -275,11 +274,11 @@ function lawyerist_products_list( $atts ) {
 
                 }
 
-               echo '</div>'; // End .user_rating.
+              echo '</div>'; // End .user_rating.
 
-               if ( !empty( $our_rating ) || !empty( $community_rating ) ) {
-                 echo '</div>'; // End aggregateRating schema.
-               }
+              if ( !empty( $composite_rating ) ) {
+                echo '</div>'; // End aggregateRating schema.
+              }
 
   					echo '</div>'; // End .title_container.
 
@@ -361,8 +360,7 @@ function lawyerist_products_list( $atts ) {
           // Check for a rating.
           if ( comments_open() && function_exists( 'wp_review_show_total' ) ) {
 
-            $community_rating       = lawyerist_get_community_rating();
-            $community_review_count = lawyerist_get_community_review_count();
+          	$composite_rating = lawyerist_get_composite_rating();
 
           }
 
@@ -378,7 +376,7 @@ function lawyerist_products_list( $atts ) {
 
             echo '<div class="title_container">';
 
-              if ( !empty( $our_rating ) || !empty( $community_rating ) ) {
+              if ( !empty( $composite_rating ) ) {
 
                 echo '<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">';
                 echo '<a class="title" href="' . $product_page_URL . '"><span itemprop="itemReviewed">' . $product_page_title . '</span></a>';
@@ -392,9 +390,9 @@ function lawyerist_products_list( $atts ) {
               // Rating
               echo '<div class="user-rating">';
 
-                if ( !empty( $our_rating ) || !empty( $community_rating ) ) {
+                if ( !empty( $composite_rating ) ) {
 
-                  echo '<a href="' . $product_page_URL . '#comments">';
+                  echo '<a href="' . $product_page_URL . '#rating">';
 
                     echo lawyerist_product_rating();
 
@@ -406,23 +404,23 @@ function lawyerist_products_list( $atts ) {
 
                 }
 
-                echo '</div>'; // End .user_rating.
+              echo '</div>'; // End .user_rating.
 
-                if ( !empty( $our_rating ) || !empty( $community_rating ) ) {
-                  echo '</div>'; // End aggregateRating schema.
-                }
-
-              echo '</div>'; // End .title_container.
-
-              if ( ( $country == ( US || CA ) ) && has_trial_button( $product_page_ID ) ) {
-
-                echo '<div class="list-products-trial-button">';
-                  echo  trial_button( $product_page_ID );
-                echo '</div>';
-
+              if ( !empty( $composite_rating ) ) {
+                echo '</div>'; // End aggregateRating schema.
               }
 
-    					echo '<div class="clear"></div>';
+            echo '</div>'; // End .title_container.
+
+            if ( ( $country == ( US || CA ) ) && has_trial_button( $product_page_ID ) ) {
+
+              echo '<div class="list-products-trial-button">';
+                echo  trial_button( $product_page_ID );
+              echo '</div>';
+
+            }
+
+  					echo '<div class="clear"></div>';
 
   					echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $product_page_URL . '">Learn more about ' . $product_page_title . '.</a></span>';
 
