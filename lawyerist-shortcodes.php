@@ -282,7 +282,7 @@ function lawyerist_products_list( $atts ) {
 
   					echo '</div>'; // End .title_container.
 
-            if ( ( $country == ( US || CA ) ) && has_trial_button( $featured_page_ID ) ) {
+            if ( ( $country == ( 'US' || 'CA' ) ) && has_trial_button( $featured_page_ID ) ) {
 
               echo '<div class="list-products-trial-button">';
 
@@ -412,7 +412,7 @@ function lawyerist_products_list( $atts ) {
 
             echo '</div>'; // End .title_container.
 
-            if ( ( $country == ( US || CA ) ) && has_trial_button( $product_page_ID ) ) {
+            if ( ( $country == ( 'US' || 'CA' ) ) && has_trial_button( $product_page_ID ) ) {
 
               echo '<div class="list-products-trial-button">';
                 echo  trial_button( $product_page_ID );
