@@ -144,15 +144,15 @@ function lawyerist_child_pages_list( $atts ) {
                 echo '<img class="attachment-thumbnail wp-post-image" src="https://lawyerist.com/lawyerist/wp-content/uploads/2018/02/L-dot.png" />';
               }
 
-              echo '<div class="headline_excerpt">';
+              echo '<div class="headline-excerpt">';
                 echo '<h2 class="headline" title="' . $child_page_title . '">' . $child_page_title . '</h2>';
-              echo '</div>'; // Close .headline_excerpt.
+              echo '</div>'; // Close .headline-excerpt.
 
               echo '<div class="clear"></div>';
 
     				echo '</a>'; // This closes the link container.
 
-          echo '</div>'; // This closes .index_post_container.
+          echo '</div>';
 
   			endwhile;
 
