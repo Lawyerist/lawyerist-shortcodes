@@ -735,7 +735,7 @@ function list_authors_shortcode() {
 
   $author_args = array(
     'has_published_posts' => array( 'post', 'page' ),
-    'exclude'             => array( 37 ),
+    'exclude'             => array( 32, 37 ),
     'orderby'             => 'post_count',
     'order'               => 'DESC',
     'role__in'            => array( 'Contributor' ),
@@ -753,7 +753,7 @@ function list_authors_shortcode() {
 
       foreach ( $authors->results as $author ) {
 
-        if ( count_user_posts( $author->ID ) > 0 ) {
+        if ( count_user_posts( $author->ID ) > 1 ) {
 
           echo '<dl class="gallery-item">';
           echo '<dt class="gallery-icon">' . get_avatar( $author->ID, 150 ) . '</dt>';
