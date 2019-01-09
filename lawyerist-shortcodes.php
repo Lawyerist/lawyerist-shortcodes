@@ -101,23 +101,39 @@ List Child Pages
 
 function lawyerist_child_pages_list( $atts ) {
 
-	$parent       = get_the_ID();
+	$parent   = get_the_ID();
 
 	// Shortcode attributes.
 	$atts = shortcode_atts( array(
-    'portal' => $parent,
+    'portal'  => $parent,
+    'exclude' => false,
   ), $atts );
 
+  $exclude      = $atts['exclude'];
+  $post__not_in = array();
+
   // Query variables.
-	$child_pages_list_query_args = array(
+	$args = array(
     'order'           => 'ASC',
     'orderby'         => 'menu_order',
+    'post__not_in'    => $atts['exclude'],
 		'post_parent'			=> $atts['portal'],
     'posts_per_page'  => -1,
 		'post_type'				=> 'page',
 	);
 
-	$child_pages_list_query = new WP_Query( $child_pages_list_query_args );
+  // Maps comma-separated list of post IDs to exclude to an array, then assigns
+  // them to the query args.
+	if( !empty( $exclude ) ) {
+		$post__not_in = array_map( 'intval', be_dps_explode( $exclude ) );
+	}
+
+	if( !empty( $post__not_in ) ) {
+		$args['post__not_in'] = $post__not_in;
+	}
+
+  // Fires up the query.
+	$child_pages_list_query = new WP_Query( $args );
 
 	if ( $child_pages_list_query->have_posts() ) :
 
