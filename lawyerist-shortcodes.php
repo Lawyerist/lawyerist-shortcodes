@@ -122,10 +122,18 @@ function lawyerist_child_pages_list( $atts ) {
 		'post_type'				=> 'page',
 	);
 
+  // Explodes a comma-separated list (',' and ', ').
+  // Nabbed from the excellent Display Posts Shortcode plugin.
+  // https://wordpress.org/plugins/display-posts-shortcode/
+  function explode_csv( $string = '' ) {
+    $string = str_replace( ', ', ',', $string );
+    return explode( ',', $string );
+  }
+
   // Maps comma-separated list of post IDs to exclude to an array, then assigns
   // them to the query args.
 	if( !empty( $exclude ) ) {
-		$post__not_in = array_map( 'intval', be_dps_explode( $exclude ) );
+		$post__not_in = array_map( 'intval', explode_csv( $exclude ) );
 	}
 
 	if( !empty( $post__not_in ) ) {
