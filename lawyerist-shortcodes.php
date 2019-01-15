@@ -84,7 +84,7 @@ Get Script
 
 function lawyerist_get_script_shortcode( $atts ) {
     $a = shortcode_atts( array(
-        'file' => ''
+        'file' => '',
     ), $atts );
 
     $dir = get_template_directory_uri();
@@ -109,7 +109,8 @@ function explode_csv( $string = '' ) {
 
 function lawyerist_child_pages_list( $atts ) {
 
-	$parent = get_the_ID();
+  $current = get_the_ID();
+	$parent  = get_the_ID();
 
 	// Shortcode attributes.
 	$atts = shortcode_atts( array(
@@ -136,11 +137,16 @@ function lawyerist_child_pages_list( $atts ) {
 		$post__not_in = array_map( 'intval', explode_csv( $exclude ) );
 	}
 
-  $args['post__not_in'] = $parent;
-
 	if( !empty( $post__not_in ) ) {
 		$args['post__not_in'] = $post__not_in;
 	}
+
+  // Exclude the current post and portal parent regardless.
+  $args['post__not_in'][] = $parent;
+
+  if ( $parent != $current ) {
+    $args['post__not_in'][] = $current;
+  }
 
   // Fires up the query.
 	$child_pages_list_query = new WP_Query( $args );
@@ -184,13 +190,13 @@ function lawyerist_child_pages_list( $atts ) {
 
   		echo '</div>'; // End #child_pages
 
-    $all_child_pages = ob_get_clean();
+    $child_pages_list = ob_get_clean();
 
-	endif; // End product list.
+	endif; // End child pages list.
 
   wp_reset_postdata();
 
-  return $all_child_pages;
+  return $child_pages_list;
 
 }
 
