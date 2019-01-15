@@ -99,9 +99,17 @@ add_shortcode( 'get-script', 'lawyerist_get_script_shortcode' );
 List Child Pages
 ------------------------------*/
 
+// Explodes a comma-separated list (',' and ', ').
+// Nabbed from the excellent Display Posts Shortcode plugin.
+// https://wordpress.org/plugins/display-posts-shortcode/
+function explode_csv( $string = '' ) {
+  $string = str_replace( ', ', ',', $string );
+  return explode( ',', $string );
+}
+
 function lawyerist_child_pages_list( $atts ) {
 
-	$parent   = get_the_ID();
+	$parent = get_the_ID();
 
 	// Shortcode attributes.
 	$atts = shortcode_atts( array(
@@ -122,19 +130,13 @@ function lawyerist_child_pages_list( $atts ) {
 		'post_type'				=> 'page',
 	);
 
-  // Explodes a comma-separated list (',' and ', ').
-  // Nabbed from the excellent Display Posts Shortcode plugin.
-  // https://wordpress.org/plugins/display-posts-shortcode/
-  function explode_csv( $string = '' ) {
-    $string = str_replace( ', ', ',', $string );
-    return explode( ',', $string );
-  }
-
   // Maps comma-separated list of post IDs to exclude to an array, then assigns
   // them to the query args.
 	if( !empty( $exclude ) ) {
 		$post__not_in = array_map( 'intval', explode_csv( $exclude ) );
 	}
+
+  $args['post__not_in'] = $parent;
 
 	if( !empty( $post__not_in ) ) {
 		$args['post__not_in'] = $post__not_in;
