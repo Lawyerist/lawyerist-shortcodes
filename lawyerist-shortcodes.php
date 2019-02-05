@@ -196,7 +196,15 @@ function lawyerist_child_pages_list( $atts ) {
 
   wp_reset_postdata();
 
-  return $child_pages_list;
+  if ( !empty( $child_pages_list ) ) {
+
+    return $child_pages_list;
+
+  } else {
+
+    return;
+    
+  }
 
 }
 
