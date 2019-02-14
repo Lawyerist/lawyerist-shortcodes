@@ -203,7 +203,7 @@ function lawyerist_child_pages_list( $atts ) {
   } else {
 
     return;
-    
+
   }
 
 }
@@ -490,6 +490,7 @@ List Affinity Partners
 function lawyerist_affinity_partners_list( $atts ) {
 
   $parent = get_the_ID();
+  $affinity_partners = '';
 
 	// Shortcode attributes.
 	$atts = shortcode_atts( array(
@@ -542,7 +543,7 @@ function lawyerist_affinity_partners_list( $atts ) {
   				echo '<li class="listing-item shadow">';
 
   					if ( has_post_thumbnail() ) {
-  						echo '<a class="image" href="' . $artner_page_URL . '">';
+  						echo '<a class="image" href="' . $partner_page_URL . '">';
   						the_post_thumbnail( 'thumbnail' );
   						echo '</a>';
   					}
@@ -614,8 +615,6 @@ function lawyerist_affinity_partners_list( $atts ) {
           $partner_page_ID		= get_the_ID();
           $partner_page_title	= the_title( '', '', FALSE );
           $partner_page_URL		= get_permalink();
-
-          array_push( $premier_partners, $partner_page_ID );
 
           $seo_descr  = get_post_meta( $partner_page_ID, '_yoast_wpseo_metadesc', true );
 
