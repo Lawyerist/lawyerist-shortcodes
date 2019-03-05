@@ -782,8 +782,6 @@ function list_authors_shortcode() {
 
   $authors = new WP_User_Query( $author_args );
 
-  $author_num = 1; // Counter for inserting mobile ads and other stuff.
-
   ob_start();
 
     echo '<div class="gallery gallery-columns-4">';
@@ -800,14 +798,6 @@ function list_authors_shortcode() {
           echo '</dl>';
 
         }
-
-        if ( $author_num % 4 == 0 ) {
-
-          echo '<div class="clear"></div>';
-
-        }
-
-        $author_num++;
 
       }
 
