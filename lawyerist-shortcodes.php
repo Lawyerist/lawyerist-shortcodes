@@ -241,7 +241,7 @@ function lawyerist_products_list( $atts ) {
   			array(
   				'taxonomy' => 'page_type',
   				'field'    => 'slug',
-  				'terms'    => array( 'featured-product', 'platinum-sponsor', 'gold-sponsor' ),
+  				'terms'    => array( 'platinum-sponsor', 'gold-sponsor' ),
   			),
   		),
   	);
@@ -510,7 +510,7 @@ function lawyerist_affinity_partners_list( $atts ) {
 			array(
 				'taxonomy' => 'page_type',
 				'field'    => 'slug',
-				'terms'    => array( 'featured-product', 'platinum-sponsor', 'gold-sponsor' ),
+				'terms'    => 'premier-partner',
 			),
 		),
 	);
@@ -592,7 +592,7 @@ function lawyerist_affinity_partners_list( $atts ) {
       array(
         'taxonomy' => 'page_type',
         'field'    => 'slug',
-        'terms'    => array( 'featured-product', 'platinum-sponsor', 'gold-sponsor' ),
+        'terms'    => 'premier-partner',
         'operator' => 'NOT IN',
       ),
     ),
