@@ -219,11 +219,11 @@ List Featured Products
 function lawyerist_featured_products_list( $atts ) {
 
   $parent   = get_the_ID();
-  $country  = get_country();
+  $country  = get_country();;
 
 	// Shortcode attributes.
 	$atts = shortcode_atts( array(
-    'portal'        => $parent,
+    'portal'  => $parent,
   ), $atts );
 
   // Query variables.
@@ -367,7 +367,7 @@ function lawyerist_all_products_list( $atts ) {
 
 	// Shortcode attributes.
 	$atts = shortcode_atts( array(
-    'portal'        => $parent,
+    'portal'  => $parent,
   ), $atts );
 
   // Query variables.
@@ -386,7 +386,6 @@ function lawyerist_all_products_list( $atts ) {
 			),
 		),
 	);
-
 
 	$product_list_query = new WP_Query( $product_list_query_args );
 
