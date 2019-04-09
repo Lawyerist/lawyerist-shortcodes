@@ -17,7 +17,8 @@ Author URI: http://samglover.net
 - Testimonials
 - Get Script
 - List Child Pages
-- List Products
+- List Featured Products
+- List All Products
 - List Affinity Partners
 - Get Scorecard Grade
 - List Authors
@@ -212,54 +213,50 @@ add_shortcode( 'list-child-pages', 'lawyerist_child_pages_list' );
 
 
 /*------------------------------
-List Products
+List Featured Products
 ------------------------------*/
 
-function lawyerist_products_list( $atts ) {
+function lawyerist_featured_products_list( $atts ) {
 
-	$parent   = get_the_ID();
+  $parent   = get_the_ID();
   $country  = get_country();
 
 	// Shortcode attributes.
 	$atts = shortcode_atts( array(
     'portal'        => $parent,
-    'show_featured' => true,
   ), $atts );
 
-  $show_featured = filter_var( $atts['show_featured'], FILTER_VALIDATE_BOOLEAN );
+  // Query variables.
+  $featured_products_list_query_args = array(
+    'orderby'					=> 'rand',
+    'post_parent'			=> $atts['portal'],
+    'post_type'				=> 'page',
+    'posts_per_page'	=> -1, // Determines how many page are displayed in the list.
+    'tax_query' => array(
+      array(
+        'taxonomy' => 'page_type',
+        'field'    => 'slug',
+        'terms'    => array( 'platinum-sponsor', 'gold-sponsor' ),
+      ),
+    ),
+  );
 
-  // Show featured products unless the shortcode contains show_featured="false".
-  if ( $show_featured == true ) {
+  $featured_products_list_query = new WP_Query( $featured_products_list_query_args );
 
-    // Query variables.
-  	$featured_products_list_query_args = array(
-  		'orderby'					=> 'rand',
-  		'post_parent'			=> $atts['portal'],
-  		'post_type'				=> 'page',
-  		'posts_per_page'	=> -1, // Determines how many page are displayed in the list.
-  		'tax_query' => array(
-  			array(
-  				'taxonomy' => 'page_type',
-  				'field'    => 'slug',
-  				'terms'    => array( 'platinum-sponsor', 'gold-sponsor' ),
-  			),
-  		),
-  	);
+  if ( $featured_products_list_query->have_posts() ) :
 
-  	$featured_products_list_query = new WP_Query( $featured_products_list_query_args );
+    ob_start();
 
-  	if ( $featured_products_list_query->have_posts() ) :
+      echo '<div class="featured_products_heading">Featured Products</div>';
 
-  		echo '<div class="featured_products_heading">Featured Products</div>';
+      echo '<ul class="product-pages-list featured-products-list">';
 
-  		echo '<ul class="product-pages-list featured-products-list">';
+        // Start the Loop.
+        while ( $featured_products_list_query->have_posts() ) : $featured_products_list_query->the_post();
 
-  			// Start the Loop.
-  			while ( $featured_products_list_query->have_posts() ) : $featured_products_list_query->the_post();
-
-  				$featured_page_ID			= get_the_ID();
-  				$featured_page_title	= the_title( '', '', FALSE );
-  				$featured_page_URL		= get_permalink();
+          $featured_page_ID			= get_the_ID();
+          $featured_page_title	= the_title( '', '', FALSE );
+          $featured_page_URL		= get_permalink();
 
           $seo_descr  = get_post_meta( $featured_page_ID, '_yoast_wpseo_metadesc', true );
 
@@ -276,15 +273,15 @@ function lawyerist_products_list( $atts ) {
 
           }
 
-  				echo '<li class="listing-item">';
+          echo '<li class="listing-item">';
 
-  					if ( has_post_thumbnail() ) {
-  						echo '<a class="image" href="' . $featured_page_URL . '">';
-  						the_post_thumbnail( 'thumbnail' );
-  						echo '</a>';
-  					}
+            if ( has_post_thumbnail() ) {
+              echo '<a class="image" href="' . $featured_page_URL . '">';
+              the_post_thumbnail( 'thumbnail' );
+              echo '</a>';
+            }
 
-  					echo '<div class="title_container">';
+            echo '<div class="title_container">';
 
               if ( !empty( $composite_rating ) ) {
 
@@ -320,7 +317,7 @@ function lawyerist_products_list( $atts ) {
                 echo '</div>'; // End aggregateRating schema.
               }
 
-  					echo '</div>'; // End .title_container.
+            echo '</div>'; // End .title_container.
 
             if ( ( $country == ( 'US' || 'CA' ) ) && has_trial_button( $featured_page_ID ) ) {
 
@@ -336,23 +333,42 @@ function lawyerist_products_list( $atts ) {
 
             }
 
-  					echo '<div class="clear"></div>';
+            echo '<div class="clear"></div>';
 
-  					echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $featured_page_URL . '">Learn more about ' . $featured_page_title . '.</a></span>';
+            echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $featured_page_URL . '">Learn more about ' . $featured_page_title . '.</a></span>';
 
-  				echo '</li>';
+          echo '</li>';
 
-  			endwhile;
+        endwhile;
 
   			wp_reset_postdata();
 
   		echo '</ul>';
 
-  	endif; // End featured products list.
+    $featured_products = ob_get_clean();
 
-  } // End featured products.
+	endif; // End product list.
 
-  // Alphabetical list of products.
+  return $featured_products;
+
+}
+
+add_shortcode( 'list-featured-products', 'lawyerist_featured_products_list' );
+
+
+/*------------------------------
+List All Products
+------------------------------*/
+
+function lawyerist_all_products_list( $atts ) {
+
+	$parent   = get_the_ID();
+  $country  = get_country();
+
+	// Shortcode attributes.
+	$atts = shortcode_atts( array(
+    'portal'        => $parent,
+  ), $atts );
 
   // Query variables.
 	$product_list_query_args = array(
@@ -480,7 +496,7 @@ function lawyerist_products_list( $atts ) {
 
 }
 
-add_shortcode( 'list-products', 'lawyerist_products_list' );
+add_shortcode( 'list-products', 'lawyerist_all_products_list' );
 
 
 /*------------------------------
