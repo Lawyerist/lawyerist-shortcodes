@@ -247,7 +247,7 @@ function lawyerist_featured_products_list( $atts ) {
 
     ob_start();
 
-      echo '<div class="featured_products_heading">Featured Products</div>';
+      echo '<h2>Featured Products</h2>';
 
       echo '<ul class="product-pages-list featured-products-list">';
 
