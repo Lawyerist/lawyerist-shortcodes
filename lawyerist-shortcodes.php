@@ -247,7 +247,11 @@ function lawyerist_featured_products_list( $atts ) {
 
     ob_start();
 
-      echo '<h2>Featured Products</h2>';
+      global $post;
+
+      $portal_title = get_the_title( $post->ID );
+
+      echo '<h2>Featured ' . $portal_title . '</h2>';
 
       echo '<ul class="product-pages-list featured-products-list">';
 
@@ -393,7 +397,11 @@ function lawyerist_all_products_list( $atts ) {
 
     ob_start();
 
-      echo '<h2>Alphabetical List</h2>';
+      global $post;
+
+      $portal_title = get_the_title( $post->ID );
+
+      echo '<h2>' . $portal_title . ' (Alphabetical List)</h2>';
 
   		echo '<ul class="product-pages-list">';
 
