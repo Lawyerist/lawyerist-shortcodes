@@ -22,6 +22,7 @@ Author URI: http://samglover.net
 - List Affinity Partners
 - Get Scorecard Grade
 - List Authors
+- List Labsters
 */
 
 
@@ -840,3 +841,47 @@ function list_authors_shortcode() {
 }
 
 add_shortcode( 'list-authors', 'list_authors_shortcode' );
+
+
+/*------------------------------
+List Labsters
+------------------------------*/
+
+function list_labsters_shortcode() {
+
+  global $wpdb;
+
+  $labster_args = array(
+    'meta_query'
+    'orderby'     => 'display_name',
+    'order'       => 'ASC',
+  );
+
+  $labsters = new WP_User_Query( $labster_args );
+
+  ob_start();
+
+    echo '<div class="gallery gallery-columns-4">';
+
+    if ( !empty( $labsters->results ) ) {
+
+      foreach ( $labsters->results as $labster ) {
+
+      }
+
+    } else {
+
+      echo 'No contributors found.';
+
+    }
+
+    echo '</div>';
+    echo '<div class="clear"></div>';
+
+  $labsters_list = ob_get_clean();
+
+  return $labsters_list;
+
+}
+
+add_shortcode( 'list-labsters', 'list_labsters_shortcode' );
