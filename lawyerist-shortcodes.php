@@ -849,38 +849,34 @@ List Labsters
 
 function list_labsters_shortcode() {
 
-  global $wpdb;
+  $labsters = get_active_labsters();
 
-  $labster_args = array(
-    'meta_query'
-    'orderby'     => 'display_name',
-    'order'       => 'ASC',
-  );
+  if ( !empty( $labsters ) ) {
 
-  $labsters = new WP_User_Query( $labster_args );
+    ob_start();
 
-  ob_start();
+      echo '<ul id="labsters">';
 
-    echo '<div class="gallery gallery-columns-4">';
+        foreach ( $labsters as $labster ) {
 
-    if ( !empty( $labsters->results ) ) {
+          echo '<li class="labster">';
+            // echo get_avatar( $labster[ 'email' ], 100 );
+            echo '<span class="labster-name">' . $labster[ 'last_name' ] . ', ' . $labster[ 'first_name' ] . '</span> <span class="labster-email">(' . $labster[ 'email' ] . ')</span>';
+          echo '</li>';
 
-      foreach ( $labsters->results as $labster ) {
+        }
 
-      }
+      echo '</ul>';
 
-    } else {
+    $labsters_list = ob_get_clean();
 
-      echo 'No contributors found.';
+    return $labsters_list;
 
-    }
+  } else {
 
-    echo '</div>';
-    echo '<div class="clear"></div>';
+    return '<p>No Labsters found!</p>';
 
-  $labsters_list = ob_get_clean();
-
-  return $labsters_list;
+  }
 
 }
 
