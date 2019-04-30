@@ -860,9 +860,8 @@ function list_labsters_shortcode() {
         foreach ( $labsters as $labster ) {
 
           echo '<li class="labster">';
-            echo get_avatar( $labster[ 'email' ], 100 );
-            echo '<p class="labster-name">' . $labster[ 'last_name' ] . ', ' . $labster[ 'first_name' ] . '</p>';
-            echo '<p class="labster-email">' . $labster[ 'email' ] . '</p>';
+            // echo get_avatar( $labster[ 'email' ], 100 );
+            echo '<span class="labster-name">' . $labster[ 'last_name' ] . ', ' . $labster[ 'first_name' ] . '</span> <span class="labster-email">(' . $labster[ 'email' ] . ')</span>';
           echo '</li>';
 
         }
