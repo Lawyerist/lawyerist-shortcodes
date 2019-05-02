@@ -125,6 +125,13 @@ function lawyerist_child_pages_list( $atts ) {
 
   // Query variables.
 	$args = array(
+    'meta_query'  => array(
+      array(
+        'key'     => '_yoast_wpseo_meta-robots-noindex',
+        'value'   => true,
+        'compare' => 'NOT IN',
+      ),
+    ),
     'order'           => 'ASC',
     'orderby'         => 'menu_order',
     'post__not_in'    => $atts['exclude'],
