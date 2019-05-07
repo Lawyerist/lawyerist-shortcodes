@@ -162,6 +162,8 @@ function lawyerist_child_pages_list( $atts ) {
   			// Start the Loop.
   			while ( $child_pages_list_query->have_posts() ) : $child_pages_list_query->the_post();
 
+          global $post;
+
           if ( WPSEO_Meta::get_value( 'meta-robots-noindex', $post->ID ) == 1 ) {
 
             continue;
