@@ -20,6 +20,7 @@ Author URI: http://samglover.net
 - List Featured Products
 - List All Products
 - List Affinity Partners
+- Get Affinity Confirmation Message
 - Get Scorecard Grade
 - List Authors
 */
@@ -691,20 +692,95 @@ add_shortcode( 'list-affinity-partners', 'lawyerist_affinity_partners_list' );
 
 
 /*------------------------------
+Get Affinity Confirmation Message
+
+Returns the affinity confirmation message
+for affinity benefit claims.
+
+Only useful in Gravity Forms confirmations.
+
+Shortcode: [affinity-confirmation partner="{Affinity Partner:3}" workflow="{Affinity Workflow:5}" claim_url="{Affinity Claim URL:7}" claim_code="{Affinity Claim Code:10}"]
+------------------------------*/
+
+function lawyerist_get_affinity_confirmation_message( $atts ) {
+
+    $atts = shortcode_atts( array(
+      'partner'     => null,
+      'workflow'    => null,
+      'claim_url'   => null,
+      'claim_code'  => null,
+    ), $atts );
+
+    $partner    = $atts['partner'];
+    $workflow   = $atts['workflow'];
+    $claim_url  = $atts['claim_url'];
+    $claim_code = $atts['claim_code'];
+
+    ob_start();
+
+      echo '<h2>Thanks!</h2>';
+
+      echo '<p>We have received your ' . $partner . ' benefit claim.</p>';
+
+      switch ( $workflow ) {
+
+        case $workflow == 'warm_handoff':
+
+          echo '<p>Please check your email. Within the next few minutes you should receive an email introducing you to your contact at ' . $partner . ' who will help you claim your benefit. If you do not receive the email, please check your spam folder. And if that does not work, use our <a href="https://lawyerist.com/contact/">contact form</a> to ask for help.</p>';
+
+          break;
+
+        case $workflow == 'coupon_code':
+
+          echo '<p>You are almost done claiming your discount! To finish, follow these easy steps:</p>';
+
+          echo '<ol>';
+            echo '<li><a href="' . $claim_url . '" target="_blank">Follow this link.</a></li>';
+            echo '<li>Enter this claim code: <strong>' . $claim_code . '</strong></li>';
+          echo '</ol>';
+
+          echo '<p>We also emailed these instructions to you. If you do not receive the email within a few minutes, please check your spam folder. And if that does not work, use our <a href="https://lawyerist.com/contact/">contact form</a> to ask for help.</p>';
+
+          break;
+
+        case $workflow == 'url_only':
+
+          echo '<p><strong>To claim your discount, just <a href="' . $claim_url . '">follow this link</a>!</strong></p>';
+
+          echo '<p>That\'s it!</p>';
+
+          echo '<p>We also emailed these instructions to you. If you do not receive the email within a few minutes, please check your spam folder. And if that does not work, use our <a href="https://lawyerist.com/contact/">contact form</a> to ask for help.</p>';
+
+          break;
+
+      }
+
+    $confirmation_message = ob_get_clean();
+
+    return $confirmation_message;
+
+}
+
+add_shortcode( 'affinity-confirmation', 'lawyerist_get_affinity_confirmation_message' );
+
+
+/*------------------------------
 Get Scorecard Grade
 
 Returns the Scorecard grade for a given score.
 Only useful in Gravity Forms confirmations.
+
+Shortcode: [get_grade form_id="{form_id}" raw_score="{survey_total_score}" q1="{score:id=2}" q2="{score:id=4}" q3="{score:id=5}"]
 ------------------------------*/
 
 function lawyerist_get_scorecard_grade( $atts ) {
 
     $atts = shortcode_atts( array(
-        'form_id'   => null,
-        'raw_score' => null,
-        'q1'        => null,
-        'q2'        => null,
-        'q3'        => null,
+      'form_id'   => null,
+      'raw_score' => null,
+      'q1'        => null,
+      'q2'        => null,
+      'q3'        => null,
     ), $atts );
 
     $form_id      = $atts['form_id'];
@@ -782,6 +858,7 @@ function lawyerist_get_scorecard_grade( $atts ) {
     return $scorecard_results;
 
 }
+
 add_shortcode( 'get_grade', 'lawyerist_get_scorecard_grade' );
 
 
