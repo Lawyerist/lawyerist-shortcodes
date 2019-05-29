@@ -281,9 +281,17 @@ function lawyerist_featured_products_list( $atts ) {
           echo '<li class="listing-item">';
 
             if ( has_post_thumbnail() ) {
+
               echo '<a class="image" href="' . $featured_page_URL . '">';
-              the_post_thumbnail( 'thumbnail' );
+
+                if ( has_term( 'affinity-partner', 'page_type', $post->ID ) && get_field( 'affinity_active' ) == true ) {
+                  echo '<img class="affinity-partner-badge" alt="Lawyerist affinity partner badge." src="https://lawyerist.com/lawyerist/wp-content/uploads/2019/05/affinity-partner-mini-badge.png" height="64" width="75" />';
+                }
+
+                the_post_thumbnail( 'thumbnail' );
+
               echo '</a>';
+
             }
 
             echo '<div class="title_container">';
@@ -327,13 +335,7 @@ function lawyerist_featured_products_list( $atts ) {
             if ( ( $country == ( 'US' || 'CA' ) ) && has_trial_button( $featured_page_ID ) ) {
 
               echo '<div class="list-products-trial-button">';
-
                 echo  trial_button( $featured_page_ID );
-
-                if ( function_exists( 'lawyerist_affinity_partner_button' ) ) {
-                    lawyerist_affinity_partner_button();
-                }
-
               echo '</div>';
 
             }
@@ -433,9 +435,17 @@ function lawyerist_all_products_list( $atts ) {
           echo '>';
 
   					if ( has_post_thumbnail() ) {
+
   						echo '<a class="image" href="' . $product_page_URL . '">';
-  						the_post_thumbnail( 'thumbnail' );
+
+                if ( has_term( 'affinity-partner', 'page_type', $post->ID ) && get_field( 'affinity_active' ) == true ) {
+                  echo '<img class="affinity-partner-badge" alt="Lawyerist affinity partner badge." src="https://lawyerist.com/lawyerist/wp-content/uploads/2019/05/affinity-partner-mini-badge.png" height="64" width="75" />';
+                }
+
+    						the_post_thumbnail( 'thumbnail' );
+
   						echo '</a>';
+
   					}
 
             echo '<div class="title_container">';
