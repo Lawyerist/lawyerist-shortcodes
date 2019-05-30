@@ -22,6 +22,7 @@ Author URI: http://samglover.net
 - Gravity Forms Conirmation Message Shortcodes
   - Get Affinity Confirmation Message
   - Get Scorecard Grade
+  - Get Website Recommendations
 - List Authors
 */
 
@@ -654,7 +655,7 @@ function lawyerist_affinity_partners_list( $atts ) {
             $partner_page_excerpt = get_the_excerpt();
           }
 
-          echo '<li class="listing-item shadow">';
+          echo '<li class="card">';
 
             if ( has_post_thumbnail() ) {
               echo '<a class="image" href="' . $partner_page_URL . '">';
@@ -708,7 +709,7 @@ Get Affinity Confirmation Message
 Returns the affinity confirmation message
 for affinity benefit claims.
 
-Shortcode: [affinity-confirmation partner="{Affinity Partner:3}" workflow="{Affinity Workflow:5}" claim_url="{Affinity Claim URL:7}" claim_code="{Affinity Claim Code:10}"]
+Shortcode: [affinity-confirmation partner="{Affinity Partner:3}" workflow="{Affinity Workflow:7}" claim_url="{Affinity Claim URL:8}" claim_code="{Affinity Claim Code:9}"]
 ------------------------------*/
 
 function lawyerist_get_affinity_confirmation_message( $atts ) {
@@ -868,6 +869,142 @@ function lawyerist_get_scorecard_grade( $atts ) {
 }
 
 add_shortcode( 'get_grade', 'lawyerist_get_scorecard_grade' );
+
+
+/*------------------------------
+Get Website Recommendations
+
+Returns a list of website referrals.
+
+Shortcode: [website-recommendations goal="{goal:4:value}" ongoing_svcs="{ongoing_svcs:5:value}" budget="{budget:6:value}" budget_ongoing="{budget_ongoing:7:value}"]
+------------------------------*/
+
+function lawyerist_get_website_recommendations( $atts ) {
+
+    $atts = shortcode_atts( array(
+      'goal'            => null,
+      'ongoing_svcs'    => null,
+      'budget'          => null,
+      'budget_ongoing'  => null,
+    ), $atts );
+
+    $goal           = $atts['goal'];
+    $ongoing_svcs   = $atts['ongoing_svcs'];
+    $budget         = $atts['budget'];
+    $budget_ongoing = $atts['budget_ongoing'];
+
+    ob_start();
+
+      // Translate $goal into English. (Basically copy and paste from the form options.)
+      switch ( $goal ) {
+
+        case $goal == 'attract':
+
+          $goal_pretty = 'attract visitors by offering valuable content';
+
+          break;
+
+        case $goal == 'convert':
+
+          $goal_pretty = 'get people who visit your website to contact your firm.';
+
+          break;
+
+        case $goal == 'branding':
+
+          $goal_pretty = 'convey a professional image and support your reputation';
+
+          break;
+
+        case $goal == 'seo':
+
+          $goal_pretty = 'rank high in Google';
+
+          break;
+
+      }
+
+      // Translate $goal into do/don't.
+      switch ( $ongoing_svcs ) {
+
+        case $ongoing_svcs == 'yes':
+
+          $ongoing_svcs_pretty = 'do';
+
+          break;
+
+        case $ongoing_svcs == 'no':
+
+          $ongoing_svcs_pretty = 'don\'t';
+
+          break;
+
+      }
+
+      // Get the budget and translate it into English.
+      if ( $budget == true ) {
+
+        switch ( $budget ) {
+
+          case $budget == 'low_budget':
+
+            $budget_pretty = 'low, or about $1,000–2,500';
+
+            break;
+
+          case $budget == 'typical':
+
+            $budget_pretty = 'typical, or about $2,500–5,000';
+
+            break;
+
+          case $budget == 'high_end':
+
+            $budget_pretty = 'high, or $5,000+';
+
+            break;
+
+        }
+
+      }
+
+      if ( $budget_ongoing == true ) {
+
+        switch ( $budget_ongoing ) {
+
+          case $budget_ongoing == 'mid_range':
+
+            $budget_pretty = 'mid-range, or about $1,000–3,000/month';
+
+            break;
+
+          case $budget_ongoing == 'high_end':
+
+            $budget_pretty = 'high-end, or $3,000+/month';
+
+            break;
+
+        }
+
+      }
+
+    echo '<h2>Thanks!</h2>';
+
+    echo '<p>First, you said your goal is to ' . $goal_pretty . ', and you said you ' . $ongoing_svcs_pretty . ' want ongoing services. You also told us your budget is ' . $budget_pretty . '.</p>';
+
+    echo '<p>Based on your that, we think you should contact one of the following:</p>';
+
+    echo '<p>OUTPUT VENDORS</p>';
+
+    echo '<p>We also emailed these recommendations to you. If you do not receive the email within a few minutes, please check your spam folder.</p>';
+
+    $confirmation_message = ob_get_clean();
+
+    return $confirmation_message;
+
+}
+
+// add_shortcode( 'website-recommendations', 'lawyerist_get_website_recommendations' );
 
 
 /*------------------------------
