@@ -11,7 +11,6 @@ Author URI: http://samglover.net
 
 /* INDEX
 - Preserve Markdown in Shortcodes
-- Image Credits
 - Pullquotes
 - Pullouts
 - Testimonials
@@ -34,22 +33,13 @@ add_filter( 'jetpack_markdown_preserve_shortcodes', '__return_false' );
 
 
 /*--------------------------------------------------
-Image Credits
---------------------------------------------------*/
-
-function lawyerist_image_credit_shortcode( $atts, $content = null ) {
-  return '<small>' . $content . '</small>';
-}
-add_shortcode('image_credit','lawyerist_image_credit_shortcode');
-
-
-/*--------------------------------------------------
 Pullquotes
 --------------------------------------------------*/
 
 function lawyerist_pullquote_shortcode( $atts, $content = null ) {
   return '<aside><blockquote class="pullquote" markdown="1">' . $content . '</blockquote></aside>';
 }
+
 add_shortcode( 'pullquote', 'lawyerist_pullquote_shortcode' );
 
 
@@ -60,6 +50,7 @@ Pullouts
 function lawyerist_pullout_shortcode( $atts, $content = null ) {
   return '<aside class="pullout"><p class="pullout" markdown="1"><span class="pullout_label">Related </span>' . $content . '</p></aside>';
 }
+
 add_shortcode( 'pullout', 'lawyerist_pullout_shortcode' );
 
 
@@ -76,7 +67,9 @@ function lawyerist_testimonial_shortcode( $atts, $quotation = null ) {
   $source = $attributes['source'];
 
   return '<aside><blockquote class="testimonial" markdown="1"><span class="sponsored_testimonial_quotation">&ldquo;' . $quotation . '&rdquo;</span><span class="sponsored_testimonial_source postmeta">—' . $source . '</span><span class="sponsored_testimonial_label">Testimonial Provided by Sponsor</span></blockquote></aside>';
+
 }
+
 add_shortcode( 'testimonial', 'lawyerist_testimonial_shortcode' );
 
 
@@ -85,6 +78,7 @@ Get Script
 --------------------------------------------------*/
 
 function lawyerist_get_script_shortcode( $atts ) {
+
     $a = shortcode_atts( array(
         'file' => '',
     ), $atts );
@@ -94,6 +88,7 @@ function lawyerist_get_script_shortcode( $atts ) {
     return '<script type="text/javascript" src="' . $dir . '/js/' . $a['file'] . '"></script>';
 
 }
+
 add_shortcode( 'get-script', 'lawyerist_get_script_shortcode' );
 
 
@@ -278,7 +273,7 @@ function lawyerist_featured_products_list( $atts ) {
 
           }
 
-          echo '<li class="listing-item">';
+          echo '<li class="card">';
 
             if ( has_post_thumbnail() ) {
 
@@ -431,7 +426,7 @@ function lawyerist_all_products_list( $atts ) {
           }
 
   				echo '<li ';
-          post_class( 'listing-item' );
+          post_class( 'card' );
           echo '>';
 
   					if ( has_post_thumbnail() ) {
@@ -574,7 +569,7 @@ function lawyerist_affinity_partners_list( $atts ) {
             $partner_page_excerpt = get_the_excerpt();
           }
 
-  				echo '<li class="listing-item shadow">';
+  				echo '<li class="card">';
 
   					if ( has_post_thumbnail() ) {
   						echo '<a class="image" href="' . $partner_page_URL . '">';
