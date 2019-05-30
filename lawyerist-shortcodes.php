@@ -19,8 +19,9 @@ Author URI: http://samglover.net
 - List Featured Products
 - List All Products
 - List Affinity Partners
-- Get Affinity Confirmation Message
-- Get Scorecard Grade
+- Gravity Forms Conirmation Message Shortcodes
+  - Get Affinity Confirmation Message
+  - Get Scorecard Grade
 - List Authors
 */
 
@@ -695,14 +696,17 @@ function lawyerist_affinity_partners_list( $atts ) {
 
 add_shortcode( 'list-affinity-partners', 'lawyerist_affinity_partners_list' );
 
+/*------------------------------
+Gravity Forms Conirmation Message Shortcodes
+
+These shortcodes are only useful in Gravity Forms confirmations.
+------------------------------*/
 
 /*------------------------------
 Get Affinity Confirmation Message
 
 Returns the affinity confirmation message
 for affinity benefit claims.
-
-Only useful in Gravity Forms confirmations.
 
 Shortcode: [affinity-confirmation partner="{Affinity Partner:3}" workflow="{Affinity Workflow:5}" claim_url="{Affinity Claim URL:7}" claim_code="{Affinity Claim Code:10}"]
 ------------------------------*/
@@ -773,7 +777,6 @@ add_shortcode( 'affinity-confirmation', 'lawyerist_get_affinity_confirmation_mes
 Get Scorecard Grade
 
 Returns the Scorecard grade for a given score.
-Only useful in Gravity Forms confirmations.
 
 Shortcode: [get_grade form_id="{form_id}" raw_score="{survey_total_score}" q1="{score:id=2}" q2="{score:id=4}" q3="{score:id=5}"]
 ------------------------------*/
