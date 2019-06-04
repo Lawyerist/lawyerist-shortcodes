@@ -17,7 +17,7 @@ Author URI: http://samglover.net
 - Get Script
 - List Child Pages
 - List Featured Products
-- List All Products
+- ucts
 - List Affinity Partners
 - Gravity Forms Conirmation Message Shortcodes
   - Get Affinity Confirmation Message
@@ -371,7 +371,8 @@ function lawyerist_all_products_list( $atts ) {
 
 	// Shortcode attributes.
 	$atts = shortcode_atts( array(
-    'portal'  => $parent,
+    'portal'      => $parent,
+    'show_title'  => true,
   ), $atts );
 
   // Query variables.
@@ -401,7 +402,7 @@ function lawyerist_all_products_list( $atts ) {
 
       $portal_title = get_the_title( $post->ID );
 
-      echo '<h2>' . $portal_title . ' (Alphabetical List)</h2>';
+      if ( $atts[ 'show_title' == true ] ) { echo '<h2>' . $portal_title . ' (Alphabetical List)</h2>'; }
 
   		echo '<ul class="product-pages-list">';
 
