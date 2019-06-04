@@ -372,7 +372,7 @@ function lawyerist_all_products_list( $atts ) {
 	// Shortcode attributes.
 	$atts = shortcode_atts( array(
     'portal'        => $parent,
-    'show_headig'   => true,
+    'show_heading'  => true,
     'show_excerpt'  => true,
   ), $atts );
 
@@ -380,7 +380,7 @@ function lawyerist_all_products_list( $atts ) {
 	$product_list_query_args = array(
 		'order'						=> 'ASC',
 		'orderby'					=> 'title',
-		'post_parent'			=> $atts['portal'],
+		'post_parent'			=> $atts[ 'portal' ],
     'posts_per_page'  => -1,
 		'post_type'				=> 'page',
     'tax_query' => array(
@@ -395,15 +395,19 @@ function lawyerist_all_products_list( $atts ) {
 
 	$product_list_query = new WP_Query( $product_list_query_args );
 
-	if ( $product_list_query->post_count > 1 ) :
+	if ( $product_list_query->post_count > 0 ) :
 
     ob_start();
 
       global $post;
 
-      $portal_title = get_the_title( $post->ID );
+      if ( $atts[ 'show_heading' == true ] ) {
 
-      if ( $atts[ 'show_heading' == true ] ) { echo '<h2>' . $portal_title . ' (Alphabetical List)</h2>'; }
+        $portal_title = get_the_title( $post->ID );
+
+        echo '<h2>' . $portal_title . ' (Alphabetical List)</h2>';
+
+      }
 
   		echo '<ul class="product-pages-list">';
 
