@@ -371,8 +371,9 @@ function lawyerist_all_products_list( $atts ) {
 
 	// Shortcode attributes.
 	$atts = shortcode_atts( array(
-    'portal'      => $parent,
-    'show_title'  => true,
+    'portal'        => $parent,
+    'show_headig'   => true,
+    'show_excerpt'  => true,
   ), $atts );
 
   // Query variables.
@@ -402,7 +403,7 @@ function lawyerist_all_products_list( $atts ) {
 
       $portal_title = get_the_title( $post->ID );
 
-      if ( $atts[ 'show_title' == true ] ) { echo '<h2>' . $portal_title . ' (Alphabetical List)</h2>'; }
+      if ( $atts[ 'show_heading' == true ] ) { echo '<h2>' . $portal_title . ' (Alphabetical List)</h2>'; }
 
   		echo '<ul class="product-pages-list">';
 
@@ -484,17 +485,22 @@ function lawyerist_all_products_list( $atts ) {
 
             echo '</div>'; // End .title_container.
 
-            if ( ( $country == ( 'US' || 'CA' ) ) && has_trial_button( $product_page_ID ) ) {
+            // Outputs trial button if there is one, except on the all-reviews page.
+            if ( !is_page( '301729' ) ) {
 
-              echo '<div class="list-products-trial-button">';
-                echo  trial_button( $product_page_ID );
-              echo '</div>';
+              if ( ( $country == ( 'US' || 'CA' ) ) && has_trial_button( $product_page_ID ) ) {
+
+                echo '<div class="list-products-trial-button">';
+                  echo  trial_button( $product_page_ID );
+                echo '</div>';
+
+              }
 
             }
 
   					echo '<div class="clear"></div>';
 
-  					echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $product_page_URL . '">Learn more about ' . $product_page_title . '.</a></span>';
+  					if ( $atts[ 'show_heading' == true ] ) { echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $product_page_URL . '">Learn more about ' . $product_page_title . '.</a></span>'; }
 
   				echo '</li>';
 
