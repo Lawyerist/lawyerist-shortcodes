@@ -10,7 +10,6 @@ Author URI: http://samglover.net
 */
 
 /* INDEX
-- Preserve Markdown in Shortcodes
 - Pullquotes
 - Pullouts
 - Testimonials
@@ -25,13 +24,6 @@ Author URI: http://samglover.net
   - Get Website Recommendations
 - List Authors
 */
-
-
-/*--------------------------------------------------
-Preserve Markdown in Shortcodes
---------------------------------------------------*/
-
-add_filter( 'jetpack_markdown_preserve_shortcodes', '__return_false' );
 
 
 /*--------------------------------------------------
