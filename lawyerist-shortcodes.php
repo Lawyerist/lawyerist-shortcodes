@@ -372,8 +372,8 @@ function lawyerist_all_products_list( $atts ) {
 	// Shortcode attributes.
 	$atts = shortcode_atts( array(
     'portal'        => $parent,
-    'show_heading'  => true,
-    'show_excerpt'  => true,
+    'show_heading'  => 'true',
+    'show_excerpt'  => 'true',
   ), $atts );
 
   // Query variables.
@@ -401,7 +401,7 @@ function lawyerist_all_products_list( $atts ) {
 
       global $post;
 
-      if ( $atts[ 'show_heading' == true ] ) {
+      if ( $atts[ 'show_heading' ] == 'true' ) {
 
         $portal_title = get_the_title( $post->ID );
 
@@ -504,7 +504,7 @@ function lawyerist_all_products_list( $atts ) {
 
   					echo '<div class="clear"></div>';
 
-  					if ( $atts[ 'show_heading' == true ] ) { echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $product_page_URL . '">Learn more about ' . $product_page_title . '.</a></span>'; }
+  					if ( $atts[ 'show_excerpt' ] == 'true' ) { echo '<span class="excerpt">' . $page_excerpt . ' <a href="' . $product_page_URL . '">Learn more about ' . $product_page_title . '.</a></span>'; }
 
   				echo '</li>';
 
