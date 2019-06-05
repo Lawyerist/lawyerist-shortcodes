@@ -17,8 +17,8 @@ Author URI: http://samglover.net
 - Get Script
 - List Child Pages
 - List Featured Products
-- ucts
-- List Affinity Partners
+- List Products
+- Get Portal Card
 - Gravity Forms Conirmation Message Shortcodes
   - Get Affinity Confirmation Message
   - Get Scorecard Grade
@@ -526,187 +526,78 @@ add_shortcode( 'list-products', 'lawyerist_all_products_list' );
 
 
 /*------------------------------
-List Affinity Partners
+Get Portal Card
 ------------------------------*/
 
-function lawyerist_affinity_partners_list( $atts ) {
-
-  $parent = get_the_ID();
-  $affinity_partners = '';
+function lawyerist_get_portal_card( $atts ) {
 
 	// Shortcode attributes.
 	$atts = shortcode_atts( array(
-    'portal' => $parent,
+    'portal'  => '',
   ), $atts );
 
-  // Outputs premier partners first.
+  if ( empty( $atts[ 'portal' ] ) ) {
+    return;
+  }
+
+  $portal_url   = get_permalink( $atts[ 'portal' ] );
+  $portal_title = get_the_title( $atts[ 'portal' ] );
 
   // Query variables.
-	$premier_affinity_partners_list_query_args = array(
-    'order'						=> 'ASC',
-		'orderby'					=> 'title',
-		'post_parent'			=> $atts['portal'],
+	$args = array(
+		'orderby'					=> 'rand',
+		'post_parent'			=> $atts[ 'portal' ],
+    'posts_per_page'  => 5,
 		'post_type'				=> 'page',
-		'posts_per_page'	=> -1,
-		'tax_query' => array(
+    'tax_query' => array(
 			array(
 				'taxonomy' => 'page_type',
 				'field'    => 'slug',
-				'terms'    => 'premier-partner',
+				'terms'    => 'discontinued-product',
+        'operator' => 'NOT IN',
 			),
 		),
 	);
 
-	$premier_affinity_partners_list_query = new WP_Query( $premier_affinity_partners_list_query_args );
+	$portal_card_query = new WP_Query( $args );
 
-	if ( $premier_affinity_partners_list_query->have_posts() ) :
-
-    ob_start();
-
-  		echo '<div class="affinity-partners-heading">Premier Partners</div>';
-
-  		echo '<ul class="affinity-partners-list product-pages-list">';
-
-  			// Start the Loop.
-  			while ( $premier_affinity_partners_list_query->have_posts() ) : $premier_affinity_partners_list_query->the_post();
-
-  				$partner_page_ID		= get_the_ID();
-  				$partner_page_title	= the_title( '', '', FALSE );
-  				$partner_page_URL		= get_permalink();
-
-          $seo_descr  = get_post_meta( $partner_page_ID, '_yoast_wpseo_metadesc', true );
-
-          if ( !empty( $seo_descr ) ) {
-            $partner_page_excerpt = $seo_descr;
-          } else {
-            $partner_page_excerpt = get_the_excerpt();
-          }
-
-  				echo '<li class="card">';
-
-  					if ( has_post_thumbnail() ) {
-  						echo '<a class="image" href="' . $partner_page_URL . '">';
-  						the_post_thumbnail( 'thumbnail' );
-  						echo '</a>';
-  					}
-
-  					echo '<div class="title_container">';
-
-              echo '<a class="title" href="' . $partner_page_URL . '">' . $partner_page_title . '</a>';
-
-  					echo '</div>'; // End .title_container.
-
-            echo '<div class="list-affinity-partners-claim-button">';
-
-    					echo '<a href="' . $partner_page_URL . '" class="button claim-button" rel="nofollow">Claim Your Discount</a>';
-
-    				echo '</div>';
-
-  					echo '<div class="clear"></div>';
-
-  					echo '<span class="excerpt">' . $partner_page_excerpt . '</span>';
-
-  				echo '</li>';
-
-  			endwhile; // End the Loop.
-
-  		echo '</ul>';
-
-    $affinity_partners = ob_get_clean();
-
-	endif; // End premier partners list.
-
-  wp_reset_postdata();
-
-  // End premier partners.
-
-
-  // List community partners.
-
-  // Query variables.
-	$affinity_partners_list_query_args = array(
-		'order'						=> 'ASC',
-		'orderby'					=> 'title',
-		'post_parent'			=> $atts['portal'],
-    'posts_per_page'  => -1,
-		'post_type'				=> 'page',
-    'tax_query' => array(
-      array(
-        'taxonomy' => 'page_type',
-        'field'    => 'slug',
-        'terms'    => 'premier-partner',
-        'operator' => 'NOT IN',
-      ),
-    ),
-	);
-
-
-	$affinity_partners_list_query = new WP_Query( $affinity_partners_list_query_args );
-
-	if ( $affinity_partners_list_query->have_posts() ) :
+	if ( $portal_card_query->post_count > 0 ) :
 
     ob_start();
 
-      echo '<div class="affinity-partners-heading">Community Partners</div>';
+      global $post;
 
-  		echo '<ul class="affinity-partners-list product-pages-list">';
+      echo '<a class="card portal-card">';
 
-        // Start the Loop.
-        while ( $affinity_partners_list_query->have_posts() ) : $affinity_partners_list_query->the_post();
+        echo '<div class="portal-card-logos">';
 
-          $partner_page_ID		= get_the_ID();
-          $partner_page_title	= the_title( '', '', FALSE );
-          $partner_page_URL		= get_permalink();
+    			// Start the Loop.
+    			while ( $portal_card_query->have_posts() ) : $portal_card_query->the_post();
 
-          $seo_descr  = get_post_meta( $partner_page_ID, '_yoast_wpseo_metadesc', true );
+            the_post_thumbnail( 'thumbnail' );
 
-          if ( !empty( $seo_descr ) ) {
-            $partner_page_excerpt = $seo_descr;
-          } else {
-            $partner_page_excerpt = get_the_excerpt();
-          }
+    			endwhile;
 
-          echo '<li class="card">';
+    			wp_reset_postdata();
 
-            if ( has_post_thumbnail() ) {
-              echo '<a class="image" href="' . $partner_page_URL . '">';
-              the_post_thumbnail( 'thumbnail' );
-              echo '</a>';
-            }
+        echo '</div>';
 
-            echo '<div class="title_container">';
+        echo '<h2>' . $portal_title . '</h2>';
 
-              echo '<a class="title" href="' . $partner_page_URL . '">' . $partner_page_title . '</a>';
+        echo '<button>Go Now</button>';
 
-            echo '</div>'; // End .title_container.
+  		echo '</a>';
 
-            echo '<div class="list-affinity-partners-claim-button">';
-
-    					echo '<a href="' . $partner_page_URL . '" class="button claim-button" rel="nofollow">Claim Your Discount</a>';
-
-    				echo '</div>';
-
-            echo '<div class="clear"></div>';
-
-            echo '<span class="excerpt">' . $partner_page_excerpt . '</span>';
-
-          echo '</li>';
-
-        endwhile; // End the Loop.
-
-  		echo '</ul>';
-
-    $affinity_partners .= ob_get_clean();
+    $portal_card = ob_get_clean();
 
 	endif; // End product list.
 
-  wp_reset_postdata();
-
-  return $affinity_partners;
+  return $portal_card;
 
 }
 
-add_shortcode( 'list-affinity-partners', 'lawyerist_affinity_partners_list' );
+add_shortcode( 'get-portal-card', 'lawyerist_get_portal_card' );
+
 
 /*------------------------------
 Gravity Forms Conirmation Message Shortcodes
