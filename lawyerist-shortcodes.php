@@ -532,57 +532,186 @@ function lawyerist_get_portal_card( $atts ) {
     return;
   }
 
-  $portal_url   = get_permalink( $atts[ 'portal' ] );
-  $portal_title = get_the_title( $atts[ 'portal' ] );
+  $portal_url     = get_permalink( $atts[ 'portal' ] );
+  $portal_title   = get_the_title( $atts[ 'portal' ] );
+  $product_logos  = array();
+  $logo_total     = 12;
+  $logo_count     = 0;
 
-  // Query variables.
+  // Start by getting platinum thumbnails and adding them to $product_logos.
 	$args = array(
 		'orderby'					=> 'rand',
 		'post_parent'			=> $atts[ 'portal' ],
-    'posts_per_page'  => 5,
+    'posts_per_page'  => $logo_total,
 		'post_type'				=> 'page',
     'tax_query' => array(
-			array(
+      array(
 				'taxonomy' => 'page_type',
 				'field'    => 'slug',
-				'terms'    => 'discontinued-product',
-        'operator' => 'NOT IN',
+				'terms'    => 'platinum-sponsor',
+        'operator' => 'IN',
 			),
 		),
 	);
 
-	$portal_card_query = new WP_Query( $args );
+	$platinum_query = new WP_Query( $args );
 
-	if ( $portal_card_query->post_count > 0 ) :
+	if ( $platinum_query->post_count > 0 ) {
 
-    ob_start();
+    $logo_count = $platinum_query->post_count;
 
-      global $post;
+    while ( $platinum_query->have_posts() ) : $platinum_query->the_post();
 
-      echo '<a class="card portal-card">';
+      $url  = get_the_post_thumbnail_url( $post->ID, 'thumbnail' );
+      $alt  = get_the_title();
 
-        echo '<div class="portal-card-logos">';
+      $product_logos[] = '<img src="' . $url . '" alt="' . $alt . '" />';
 
-    			// Start the Loop.
-    			while ( $portal_card_query->have_posts() ) : $portal_card_query->the_post();
+    endwhile;
 
-            the_post_thumbnail( 'thumbnail' );
+  }
 
-    			endwhile;
+  // If we still don't have 6 logos, add gold sponsors.
+  /* if ( $logo_count < $logo_total ) { */
 
-    			wp_reset_postdata();
+  	$args = array(
+  		'orderby'					=> 'rand',
+  		'post_parent'			=> $atts[ 'portal' ],
+      'posts_per_page'  => -1,
+  		'post_type'				=> 'page',
+      'tax_query' => array(
+        array(
+  				'taxonomy' => 'page_type',
+  				'field'    => 'slug',
+  				'terms'    => 'gold-sponsor',
+          'operator' => 'IN',
+  			),
+  		),
+  	);
 
-        echo '</div>';
+  	$gold_query = new WP_Query( $args );
 
-        echo '<h2>' . $portal_title . '</h2>';
+  	if ( $gold_query->post_count > 0 ) {
 
-        echo '<button>Go Now</button>';
+      $logo_count = $logo_count + $gold_query->post_count;
 
-  		echo '</a>';
+      while ( $gold_query->have_posts() ) : $gold_query->the_post();
 
-    $portal_card = ob_get_clean();
+        $url  = get_the_post_thumbnail_url( $post->ID, 'thumbnail' );
+        $alt  = get_the_title();
 
-	endif; // End product list.
+        $product_logos[] = '<img src="' . $url . '" alt="' . $alt . '" />';
+
+      endwhile;
+
+    }
+
+  /* }
+
+  // If we still don't have 6 logos, add silver sponsors.
+  if ( $logo_count < $logo_total ) { */
+
+  	$args = array(
+  		'orderby'					=> 'rand',
+  		'post_parent'			=> $atts[ 'portal' ],
+      'posts_per_page'  => -1,
+  		'post_type'				=> 'page',
+      'tax_query' => array(
+        array(
+  				'taxonomy' => 'page_type',
+  				'field'    => 'slug',
+  				'terms'    => 'silver-sponsor',
+          'operator' => 'IN',
+  			),
+  		),
+  	);
+
+  	$silver_query = new WP_Query( $args );
+
+  	if ( $silver_query->post_count > 0 ) {
+
+      $logo_count = $logo_count + $silver_query->post_count;
+
+      while ( $silver_query->have_posts() ) : $silver_query->the_post();
+
+        $url  = get_the_post_thumbnail_url( $post->ID, 'thumbnail' );
+        $alt  = get_the_title();
+
+        $product_logos[] = '<img src="' . $url . '" alt="' . $alt . '" />';
+
+      endwhile;
+
+    }
+
+  /* }
+
+  // And if we somehow still don't have 6 logos, add the rest sponsors.
+  if ( $logo_count < $logo_total ) { */
+
+  	$args = array(
+  		'orderby'					=> 'rand',
+  		'post_parent'			=> $atts[ 'portal' ],
+      'posts_per_page'  => -1,
+  		'post_type'				=> 'page',
+      'tax_query' => array(
+        array(
+  				'taxonomy' => 'page_type',
+  				'field'    => 'slug',
+  				'terms'    => array(
+            'platinum-sponsor',
+            'gold-sponsor',
+            'silver-sponsor',
+          ),
+          'operator' => 'NOT IN',
+  			),
+  		),
+  	);
+
+  	$remainder_query = new WP_Query( $args );
+
+  	if ( $remainder_query->post_count > 0 ) {
+
+      $logo_count = $logo_count + $remainder_query->post_count;
+
+      while ( $remainder_query->have_posts() ) : $remainder_query->the_post();
+
+        $url  = get_the_post_thumbnail_url( $post->ID, 'thumbnail' );
+        $alt  = get_the_title();
+
+        $product_logos[] = '<img src="' . $url . '" alt="' . $alt . '" />';
+
+      endwhile;
+
+    }
+
+  /* } */
+
+  ob_start();
+
+    echo '<a href="' . $portal_url . '" class="card portal-card">';
+
+      echo '<div class="portal-card-header">';
+
+        echo '<h2 class="headline">' . $portal_title . '</h2>';
+        echo '<button>See the Reviews</button>';
+
+      echo '</div>';
+
+      echo '<div class="portal-card-logos">';
+
+  			foreach ( $product_logos as $logo ) {
+
+          echo $logo;
+
+        }
+
+      echo '</div>';
+
+		echo '</a>';
+
+  $portal_card = ob_get_clean();
+
+  wp_reset_postdata();
 
   return $portal_card;
 
