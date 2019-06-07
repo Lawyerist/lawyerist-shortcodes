@@ -151,31 +151,35 @@ function lawyerist_child_pages_list( $atts ) {
   			// Start the Loop.
   			while ( $child_pages_list_query->have_posts() ) : $child_pages_list_query->the_post();
 
-  				$child_page_title	  = the_title( '', '', FALSE );
-  				$child_page_URL     = get_permalink();
+          if ( !WPSEO_Meta::get_value( 'meta-robots-noindex', $post->ID ) == 1 ) {
 
-          echo '<div ' ;
-    			post_class();
-  				echo '>';
+    				$child_page_title	  = the_title( '', '', FALSE );
+    				$child_page_URL     = get_permalink();
 
-            // Starts the link container. Makes for big click targets!
-  					echo '<a href="' . $child_page_URL . '" title="' . $child_page_title . '">';
+            echo '<div ' ;
+      			post_class();
+    				echo '>';
 
-              if ( has_post_thumbnail() ) {
-                the_post_thumbnail( 'thumbnail' );
-              } else {
-                echo '<img class="attachment-thumbnail wp-post-image" src="https://lawyerist.com/lawyerist/wp-content/uploads/2018/02/L-dot.png" />';
-              }
+              // Starts the link container. Makes for big click targets!
+    					echo '<a href="' . $child_page_URL . '" title="' . $child_page_title . '">';
 
-              echo '<div class="headline-excerpt">';
-                echo '<h2 class="headline" title="' . $child_page_title . '">' . $child_page_title . '</h2>';
-              echo '</div>'; // Close .headline-excerpt.
+                if ( has_post_thumbnail() ) {
+                  the_post_thumbnail( 'thumbnail' );
+                } else {
+                  echo '<img class="attachment-thumbnail wp-post-image" src="https://lawyerist.com/lawyerist/wp-content/uploads/2018/02/L-dot.png" />';
+                }
 
-              echo '<div class="clear"></div>';
+                echo '<div class="headline-excerpt">';
+                  echo '<h2 class="headline" title="' . $child_page_title . '">' . $child_page_title . '</h2>';
+                echo '</div>'; // Close .headline-excerpt.
 
-    				echo '</a>'; // This closes the link container.
+                echo '<div class="clear"></div>';
 
-          echo '</div>';
+      				echo '</a>'; // This closes the link container.
+
+            echo '</div>';
+
+          }
 
   			endwhile;
 
