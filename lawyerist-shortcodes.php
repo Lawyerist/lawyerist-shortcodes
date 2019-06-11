@@ -23,6 +23,7 @@ Author URI: http://samglover.net
   - Get Scorecard Grade
   - Get Website Recommendations
 - List Authors
+- List Labsters
 */
 
 
@@ -1079,3 +1080,45 @@ function list_authors_shortcode() {
 }
 
 add_shortcode( 'list-authors', 'list_authors_shortcode' );
+
+
+/*------------------------------
+List Authors
+------------------------------*/
+
+function list_labsters_shortcode() {
+
+  $labsters = get_active_labsters();
+
+  if ( !empty( $labsters ) ) {
+
+    ob_start();
+
+      echo '<ul id="labsters">';
+
+        foreach ( $labsters as $labster ) {
+
+          echo '<li class="labster">';
+
+            // echo get_avatar( $labster[ 'email' ], 100 );
+            echo '<span class="labster-name">' . $labster[ 'last_name' ] . ', ' . $labster[ 'first_name' ] . '</span> <span class="labster-email">(' . $labster[ 'email' ] . ')</span>';
+
+          echo '</li>';
+
+        }
+
+      echo '</ul>';
+
+    $labsters_list = ob_get_clean();
+
+    return $labsters_list;
+
+  } else {
+
+    return '<p>No Labsters found!</p>';
+
+  }
+
+}
+
+add_shortcode( 'list-labsters', 'list_labsters_shortcode' );
