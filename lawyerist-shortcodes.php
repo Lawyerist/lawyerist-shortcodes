@@ -152,15 +152,9 @@ function lawyerist_child_pages_list( $atts ) {
   			// Start the Loop.
   			while ( $child_pages_list_query->have_posts() ) : $child_pages_list_query->the_post();
 
-          global $post;
+          if ( !WPSEO_Meta::get_value( 'meta-robots-noindex', $post->ID ) == 1 ) {
 
-          if ( WPSEO_Meta::get_value( 'meta-robots-noindex', $post->ID ) == 1 ) {
-
-            continue;
-
-          } else {
-
-            $child_page_title	  = the_title( '', '', FALSE );
+    				$child_page_title	  = the_title( '', '', FALSE );
     				$child_page_URL     = get_permalink();
 
             echo '<div ' ;
@@ -1089,7 +1083,7 @@ add_shortcode( 'list-authors', 'list_authors_shortcode' );
 
 
 /*------------------------------
-List Labsters
+List Authors
 ------------------------------*/
 
 function list_labsters_shortcode() {
@@ -1105,8 +1099,10 @@ function list_labsters_shortcode() {
         foreach ( $labsters as $labster ) {
 
           echo '<li class="labster">';
+
             // echo get_avatar( $labster[ 'email' ], 100 );
             echo '<span class="labster-name">' . $labster[ 'last_name' ] . ', ' . $labster[ 'first_name' ] . '</span> <span class="labster-email">(' . $labster[ 'email' ] . ')</span>';
+
           echo '</li>';
 
         }
