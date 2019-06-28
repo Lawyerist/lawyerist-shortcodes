@@ -147,7 +147,7 @@ function lawyerist_child_pages_list( $atts ) {
 
     ob_start();
 
-      echo '<div id="child_pages_list">';
+      echo '<ul class="child-pages-list">';
 
   			// Start the Loop.
   			while ( $child_pages_list_query->have_posts() ) : $child_pages_list_query->the_post();
@@ -157,34 +157,15 @@ function lawyerist_child_pages_list( $atts ) {
     				$child_page_title	  = the_title( '', '', FALSE );
     				$child_page_URL     = get_permalink();
 
-            echo '<div ' ;
-      			post_class();
-    				echo '>';
-
-              // Starts the link container. Makes for big click targets!
-    					echo '<a href="' . $child_page_URL . '" title="' . $child_page_title . '">';
-
-                if ( has_post_thumbnail() ) {
-                  the_post_thumbnail( 'thumbnail' );
-                } else {
-                  echo '<img class="attachment-thumbnail wp-post-image" src="https://lawyerist.com/lawyerist/wp-content/uploads/2018/02/L-dot.png" />';
-                }
-
-                echo '<div class="headline-excerpt">';
-                  echo '<h2 class="headline" title="' . $child_page_title . '">' . $child_page_title . '</h2>';
-                echo '</div>'; // Close .headline-excerpt.
-
-                echo '<div class="clear"></div>';
-
-      				echo '</a>'; // This closes the link container.
-
-            echo '</div>';
+            echo '<li>';
+    					echo '<a href="' . $child_page_URL . '" title="' . $child_page_title . '">' . $child_page_title . '</a>';
+            echo '</li>';
 
           }
 
   			endwhile;
 
-  		echo '</div>'; // End #child_pages
+  		echo '</ul>'; // End #child_pages
 
     $child_pages_list = ob_get_clean();
 
