@@ -1018,9 +1018,8 @@ function list_authors_shortcode() {
 
   $author_args = array(
     'has_published_posts' => array( 'post', 'page' ),
-    'exclude'             => array( 32, 37 ),
-    'orderby'             => 'post_count',
-    'order'               => 'DESC',
+    'exclude'             => array( 26, 32, 37 ), // Excludes Lawyerist, guest, and sponsor.
+    'orderby'             => 'display_name',
     'role__in'            => array( 'Contributor' ),
   );
 
@@ -1034,7 +1033,7 @@ function list_authors_shortcode() {
 
       foreach ( $authors->results as $author ) {
 
-        if ( count_user_posts( $author->ID ) > 1 ) {
+        if ( count_user_posts( $author->ID ) >= 5 ) {
 
           echo '<dl class="gallery-item">';
           echo '<dt class="gallery-icon">' . get_avatar( $author->ID, 150 ) . '</dt>';
@@ -1052,7 +1051,6 @@ function list_authors_shortcode() {
     }
 
     echo '</div>';
-    echo '<div class="clear"></div>';
 
   $authors_list = ob_get_clean();
 
