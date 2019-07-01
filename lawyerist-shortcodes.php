@@ -1010,34 +1010,32 @@ add_shortcode( 'website-recommendations', 'lawyerist_get_website_recommendations
 List Authors
 ------------------------------*/
 
-function list_authors_shortcode() {
+function list_contributors_shortcode() {
 
   global $wpdb;
 
-  $blog_id = get_current_blog_id();
-
-  $author_args = array(
+  $args = array(
     'has_published_posts' => array( 'post', 'page' ),
     'exclude'             => array( 26, 32, 37 ), // Excludes Lawyerist, guest, and sponsor.
     'orderby'             => 'display_name',
     'role__in'            => array( 'Contributor' ),
   );
 
-  $authors = new WP_User_Query( $author_args );
+  $contributors = new WP_User_Query( $args );
 
   ob_start();
 
-    echo '<div class="gallery gallery-columns-4">';
+    echo '<div id="contributors-list" class="gallery gallery-columns-4">';
 
-    if ( !empty( $authors->results ) ) {
+    if ( !empty( $contributors->results ) ) {
 
-      foreach ( $authors->results as $author ) {
+      foreach ( $contributors->results as $contributor ) {
 
-        if ( count_user_posts( $author->ID ) >= 5 ) {
+        if ( count_user_posts( $contributor->ID ) >= 5 ) {
 
           echo '<dl class="gallery-item">';
-          echo '<dt class="gallery-icon">' . get_avatar( $author->ID, 150 ) . '</dt>';
-          echo '<dd class="wp-caption-text gallery-caption"><a href="' . get_author_posts_url( $author->ID ) . '">' . $author->display_name . '</a></dd>';
+          echo '<dt class="gallery-icon">' . get_avatar( $contributor->ID, 150 ) . '</dt>';
+          echo '<dd class="wp-caption-text gallery-caption"><a href="' . get_author_posts_url( $contributor->ID ) . '">' . $contributor->display_name . '</a></dd>';
           echo '</dl>';
 
         }
@@ -1052,13 +1050,13 @@ function list_authors_shortcode() {
 
     echo '</div>';
 
-  $authors_list = ob_get_clean();
+  $contributors_list = ob_get_clean();
 
-  return $authors_list;
+  return $contributors_list;
 
 }
 
-add_shortcode( 'list-authors', 'list_authors_shortcode' );
+add_shortcode( 'list-contributors', 'list_contributors_shortcode' );
 
 
 /*------------------------------
