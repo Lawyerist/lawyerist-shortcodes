@@ -544,12 +544,13 @@ function lawyerist_get_portal_card( $atts ) {
 
     while ( $platinum_query->have_posts() ) : $platinum_query->the_post();
 
-      $url  = get_the_post_thumbnail_url( $post->ID, 'thumbnail' );
-      $alt  = get_the_title();
+      $post_ID  = get_the_ID();
+      $url      = get_the_post_thumbnail_url( $post_ID, 'thumbnail' );
+      $alt      = get_the_title();
 
       $product_logos[] = '<img src="' . $url . '" alt="' . $alt . '" />';
 
-    endwhile;
+    endwhile; wp_reset_postdata();
 
   }
 
@@ -579,12 +580,13 @@ function lawyerist_get_portal_card( $atts ) {
 
       while ( $gold_query->have_posts() ) : $gold_query->the_post();
 
-        $url  = get_the_post_thumbnail_url( $post->ID, 'thumbnail' );
-        $alt  = get_the_title();
+        $post_ID  = get_the_ID();
+        $url      = get_the_post_thumbnail_url( $post_ID, 'thumbnail' );
+        $alt      = get_the_title();
 
         $product_logos[] = '<img src="' . $url . '" alt="' . $alt . '" />';
 
-      endwhile;
+      endwhile; wp_reset_postdata();
 
     }
 
@@ -616,12 +618,13 @@ function lawyerist_get_portal_card( $atts ) {
 
       while ( $silver_query->have_posts() ) : $silver_query->the_post();
 
-        $url  = get_the_post_thumbnail_url( $post->ID, 'thumbnail' );
-        $alt  = get_the_title();
+        $post_ID  = get_the_ID();
+        $url      = get_the_post_thumbnail_url( $post_ID, 'thumbnail' );
+        $alt      = get_the_title();
 
         $product_logos[] = '<img src="' . $url . '" alt="' . $alt . '" />';
 
-      endwhile;
+      endwhile; wp_reset_postdata();
 
     }
 
@@ -657,8 +660,9 @@ function lawyerist_get_portal_card( $atts ) {
 
       while ( $remainder_query->have_posts() ) : $remainder_query->the_post();
 
-        $url  = get_the_post_thumbnail_url( $post->ID, 'thumbnail' );
-        $alt  = get_the_title();
+        $post_ID  = get_the_ID();
+        $url      = get_the_post_thumbnail_url( $post_ID, 'thumbnail' );
+        $alt      = get_the_title();
 
         $product_logos[] = '<img src="' . $url . '" alt="' . $alt . '" />';
 
