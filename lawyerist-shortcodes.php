@@ -140,36 +140,38 @@ function lawyerist_child_pages_list( $atts ) {
     $args['post__not_in'][] = $current;
   }
 
-  // Fires up the query.
-	$child_pages_list_query = new WP_Query( $args );
+  ob_start();
 
-	if ( $child_pages_list_query->have_posts() ) :
+    // Fires up the query.
+  	$child_pages_list_query = new WP_Query( $args );
 
-    ob_start();
+  	if ( $child_pages_list_query->have_posts() ) :
 
-      echo '<ul class="child-pages-list">';
+        echo '<ul class="child-pages-list">';
 
-  			// Start the Loop.
-  			while ( $child_pages_list_query->have_posts() ) : $child_pages_list_query->the_post();
+    			// Start the Loop.
+    			while ( $child_pages_list_query->have_posts() ) : $child_pages_list_query->the_post();
 
-          if ( !WPSEO_Meta::get_value( 'meta-robots-noindex', $post->ID ) == 1 ) {
+            $post_ID = get_the_ID();
 
-    				$child_page_title	  = the_title( '', '', FALSE );
-    				$child_page_URL     = get_permalink();
+            if ( !WPSEO_Meta::get_value( 'meta-robots-noindex', $post_ID ) == 1 ) {
 
-            echo '<li>';
-    					echo '<a href="' . $child_page_URL . '" title="' . $child_page_title . '">' . $child_page_title . '</a>';
-            echo '</li>';
+      				$child_page_title	  = the_title( '', '', FALSE );
+      				$child_page_URL     = get_permalink();
 
-          }
+              echo '<li>';
+      					echo '<a href="' . $child_page_URL . '" title="' . $child_page_title . '">' . $child_page_title . '</a>';
+              echo '</li>';
 
-  			endwhile;
+            }
 
-  		echo '</ul>'; // End #child_pages
+    			endwhile;
 
-    $child_pages_list = ob_get_clean();
+    		echo '</ul>'; // End #child_pages
 
-	endif; // End child pages list.
+  	endif; // End child pages list.
+
+  $child_pages_list = ob_get_clean();
 
   wp_reset_postdata();
 
