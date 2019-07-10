@@ -1,3 +1,3 @@
 # Lawyerist Shortcodes Plugin for WordPress
 
-A plugin with shortcodes for Lawyerist.com.
+See [Github commits](https://github.com/Lawyerist/lawyerist-shortcodes) for a sort-of changelog.
