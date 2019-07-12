@@ -786,87 +786,87 @@ Shortcode: [get_grade form_id="{form_id}" raw_score="{survey_total_score}" q1="{
 
 function lawyerist_get_scorecard_grade( $atts ) {
 
-    $atts = shortcode_atts( array(
-      'form_id'   => null,
-      'raw_score' => null,
-      'q1'        => null,
-      'q2'        => null,
-      'q3'        => null,
-    ), $atts );
+  $atts = shortcode_atts( array(
+    'form_id'   => null,
+    'raw_score' => null,
+    'q1'        => null,
+    'q2'        => null,
+    'q3'        => null,
+  ), $atts );
 
-    $form_id      = $atts['form_id'];
-    $raw_score    = $atts['raw_score'];
-    $goals_score  = $atts['q1'] + $atts['q2'] + $atts['q3'];
+  $form_id      = $atts['form_id'];
+  $raw_score    = $atts['raw_score'];
+  $goals_score  = $atts['q1'] + $atts['q2'] + $atts['q3'];
 
-    // Checks to see which form was submitted.
-    switch ( $form_id ) {
+  // Checks to see which form was submitted.
+  switch ( $form_id ) {
 
-      case $form_id == '45': // Small Firm Scorecard
-        $total = 500;
-        break;
+    case $form_id == '45': // Small Firm Scorecard
+      $total = 500;
+      break;
 
-      case $form_id == 47: // Solo Practice Scorecard
-        $total = 400;
-        break;
+    case $form_id == 47: // Solo Practice Scorecard
+      $total = 400;
+      break;
 
-    }
+  }
 
-    // Calculates the % score.
-    $score = ( $raw_score / $total ) * 100;
+  // Calculates the % score.
+  $score = ( $raw_score / $total ) * 100;
 
-    switch ( $score ) {
+  switch ( $score ) {
 
-      case ( $score < 60 ):
-        $grade = 'F';
-        break;
+    case ( $score < 60 ):
+      $grade = 'F';
+      break;
 
-      case ( $score >= 60 && $score < 70 ):
-        $grade = 'D';
-        break;
+    case ( $score >= 60 && $score < 70 ):
+      $grade = 'D';
+      break;
 
-      case ( $score >= 70 && $score < 80 ):
-        $grade = 'C';
-        break;
+    case ( $score >= 70 && $score < 80 ):
+      $grade = 'C';
+      break;
 
-      case ( $score >= 80 && $score < 90 ):
-        $grade = 'B';
-        break;
+    case ( $score >= 80 && $score < 90 ):
+      $grade = 'B';
+      break;
 
-      case ( $score >= 90 ):
-        $grade = 'A';
-        break;
+    case ( $score >= 90 ):
+      $grade = 'A';
+      break;
 
-    }
+  }
 
-    ob_start();
+  ob_start();
 
-      ?>
+    ?>
 
-        <div id="scorecard_results">
-          <div id="grade_box">
-            <div class="grade_label">Your Firm's Score</div>
-            <div class="grade"><?php echo $grade; ?></div>
-            <div class="score"><?php echo $raw_score; ?>/<?php echo $total; ?></div>
-          </div>
-          <div id="get_results">
-            <a class="button" href="#interpret_results">Interpret Your Results</a>
-          </div>
-          <div class="clear"></div>
+      <div id="scorecard_results">
+        <div id="grade_box">
+          <div class="grade_label">Your Firm's Score</div>
+          <div class="grade"><?php echo $grade; ?></div>
+          <div class="score"><?php echo $raw_score; ?>/<?php echo $total; ?></div>
         </div>
+        <div id="get_results">
+          <a class="button" href="#interpret_results">Interpret Your Results</a>
+        </div>
+        <div class="clear"></div>
+      </div>
 
-      <?php
+    <?php
 
-      if ( $goals_score <= 15 ) {
+    if ( $goals_score <= 15 ) {
 
-        echo '<p class="alert">Regardless of your overall score, it looks like your goals need your attention. Keep reading for more information.</p>';
+      echo '<p class="alert">Regardless of your overall score, it looks like your goals need your attention. Keep reading for more information.</p>';
 
-      }
+    }
 
-      echo '<div id="interpret_results"></div>';
+    echo '<div id="interpret_results"></div>';
 
-    $scorecard_results = ob_get_clean();
+  $scorecard_results = ob_get_clean();
 
-    return $scorecard_results;
+  return $scorecard_results;
 
 }
 
