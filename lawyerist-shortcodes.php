@@ -700,7 +700,7 @@ add_shortcode( 'get-portal-card', 'lawyerist_get_portal_card' );
 
 
 /*------------------------------
-Gravity Forms Conirmation Message Shortcodes
+Gravity Forms Confirmation Message Shortcodes
 
 These shortcodes are only useful in Gravity Forms confirmations.
 ------------------------------*/
