@@ -156,7 +156,7 @@ function lawyerist_child_pages_list( $atts ) {
 
             if ( !WPSEO_Meta::get_value( 'meta-robots-noindex', $post_ID ) == 1 ) {
 
-      				lawyerist_get_card();
+      				lawyerist_get_post_card();
 
             }
 
